@@ -1,1 +1,8 @@
 # RBE594-Eyetracked-Manipulator
+# Changes specific to this branch
+- simulation\open_manipulator\open_manipulator_bringup\worlds\empty_world.sdf was updated to include the STL files for the table, laptop/camera, table, and wheelchair. The checkerboard was imported as a plane with a png texture taken from the Onshape model. The ground plane visibility was hidden but still has collision present.
+- The STL and png files mentioned above were added to the simulation\open_manipulator\open_manipulator_bringup\worlds\ folder.
+- simulation\open_manipulator\open_manipulator_description\urdf\open_manipulator_x\open_manipulator_x_arm.urdf.xacro was modified to hide the visibility of the gripper links and move link 5 into the proper position, which was swapped with the fork end effector assembly model.
+- simulation\open_manipulator\open_manipulator_description\meshes\open_manipulator_x\ now has link5 updated (ORIGINAL_link5.stl is still there just in case)
+- simulation\open_manipulator\docker\container.sh appears as modified because hidden Windows carriage return characters (\r) were removed from each line ending with the script "sed -i 's/\r$//' ./docker/container.sh" - this changed the file from CRLF to LF formatting for WSL/Linux compatibility
+    - shouldn't be an issue for you guys, I think it just saved in windows like that when I cloned the repo
