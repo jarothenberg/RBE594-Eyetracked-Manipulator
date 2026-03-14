@@ -72,7 +72,7 @@
 
     <model name="checkerboard">
       <static>true</static>
-      <pose>0.2 0.18 0.0225 0 0 0</pose>
+      <pose>0.2 0.0 0.0225 0 0 0</pose>
 
       <link name="checkerboard_link">
 
@@ -87,7 +87,7 @@
           <material>
             <ambient>1 1 1 1</ambient>
             <diffuse>1 1 1 1</diffuse>
-            <specular>0.1 0.1 0.1 1</specular>
+            <specular>1 1 1 1</specular>
             <pbr>
               <metal>
                 <albedo_map>
@@ -104,7 +104,7 @@
 
     <model name="laptop/camera">
       <static>true</static>
-      <pose>0.675 0.10 0.02 0 0 -0.35</pose>
+      <pose>0.675 0.0 0.02 0 0 -0.35</pose>
 
       <link name="laptop_link">
 
@@ -134,11 +134,47 @@
         -->
 
       </link>
+
+        </model>
+
+    <model name="overhead camera">
+      <static>true</static>
+      <pose>0.2 0.075 0.02 0 0 0</pose>
+
+      <link name="overheadcam_link">
+
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <uri>file:///root/ros2_ws/src/open_manipulator/open_manipulator_bringup/worlds/overheadcam.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+          <material>
+            <ambient>0 0 0 1</ambient>
+            <diffuse>0.2 0.2 0.2 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+
+        <!--
+        <collision name="collision">
+          <geometry>
+            <mesh>
+              <uri>file:///root/ros2_ws/src/open_manipulator/open_manipulator_bringup/worlds/laptop_camera.stl</uri>
+              <scale>0.001 0.001 0.001</scale>
+            </mesh>
+          </geometry>
+        </collision>
+        -->
+
+      </link>
+
     </model>
 
     <model name="table">
       <static>true</static>
-      <pose>0.225 0.2 0 0 0 0</pose>
+      <pose>0.225 0.1 0 0 0 0</pose>
 
       <link name="table_link">
 
@@ -174,7 +210,7 @@
       <static>true</static>
 
       <!--
-      <pose>-4.5 0.39 1.8 1.57 0 1.57</pose>
+      <pose>-4.5 0.29 1.8 1.57 0 1.57</pose>
       -->
 
       <pose>2.05 -4.95 -0.85 1.57 0 1.57</pose>
@@ -211,7 +247,7 @@
 
 <gui>
   <camera name="user_camera">
-    <pose>0 0 10 0 -1.57 0</pose>
+    <pose>0 0 2 0 -1.57 0</pose>
   </camera>
 </gui>
 
