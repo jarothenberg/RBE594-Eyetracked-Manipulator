@@ -108,6 +108,7 @@ class KeyboardController(Node):
         arm_msg.points.append(arm_point)
         self.arm_publisher.publish(arm_msg)
         self.get_logger().info(f'Arm command sent: {self.arm_joint_positions}')
+        #TODO check if connected to hardware robot and send if connected
 
     def send_gripper_command(self):
         goal_msg = GripperCommand.Goal()
@@ -118,6 +119,7 @@ class KeyboardController(Node):
         self.gripper_client.wait_for_server()
         send_goal_future = self.gripper_client.send_goal_async(goal_msg)
         rclpy.spin_until_future_complete(self, send_goal_future)
+        #TODO check if connected to hardware robot and send if connected
 
     def run(self):
         while not self.joint_received and rclpy.ok() and self.running:
@@ -143,41 +145,41 @@ class KeyboardController(Node):
                         break
                     elif key == '1':
                         new_pos = min(
-                            self.arm_joint_positions[0] + self.max_delta, 3.14
+                            self.arm_joint_positions[0] + self.max_delta, 3.14 #TODO replace with +x in task space self.arm_ee_positions
                         )
                         self.arm_joint_positions[0] = new_pos
                     elif key == 'q':
                         new_pos = max(
-                            self.arm_joint_positions[0] - self.max_delta, -3.14
+                            self.arm_joint_positions[0] - self.max_delta, -3.14 #TODO replace with -x in task space self.arm_ee_positions
                         )
                         self.arm_joint_positions[0] = new_pos
                     elif key == '2':
-                        new_pos = min(self.arm_joint_positions[1] + self.max_delta, 1.5)
+                        new_pos = min(self.arm_joint_positions[1] + self.max_delta, 1.5) #TODO replace with +y in task space self.arm_ee_positions
                         self.arm_joint_positions[1] = new_pos
                     elif key == 'w':
                         new_pos = max(
-                            self.arm_joint_positions[1] - self.max_delta, -1.5
+                            self.arm_joint_positions[1] - self.max_delta, -1.5 #TODO replace with -y in task space self.arm_ee_positions
                         )
                         self.arm_joint_positions[1] = new_pos
                     elif key == '3':
-                        new_pos = min(self.arm_joint_positions[2] + self.max_delta, 1.5)
+                        new_pos = min(self.arm_joint_positions[2] + self.max_delta, 1.5) #TODO replace with +z in task space self.arm_ee_positions
                         self.arm_joint_positions[2] = new_pos
                     elif key == 'e':
                         new_pos = max(
-                            self.arm_joint_positions[2] - self.max_delta, -1.5
+                            self.arm_joint_positions[2] - self.max_delta, -1.5 #TODO replace with -z in task space self.arm_ee_positions
                         )
                         self.arm_joint_positions[2] = new_pos
                     elif key == '4':
-                        new_pos = min(self.arm_joint_positions[3] + self.max_delta, 1.5)
+                        new_pos = min(self.arm_joint_positions[3] + self.max_delta, 1.5) #TODO replace with +pitch in task space self.arm_ee_positions
                         self.arm_joint_positions[3] = new_pos
                     elif key == 'r':
                         new_pos = max(
-                            self.arm_joint_positions[3] - self.max_delta, -1.5
+                            self.arm_joint_positions[3] - self.max_delta, -1.5 #TODO replace with -pitch in task space self.arm_ee_positions
                         )
                         self.arm_joint_positions[3] = new_pos
                     elif key == 'o':  # Open gripper
                         new_pos = min(
-                            self.gripper_position + self.gripper_delta, self.gripper_max
+                            self.gripper_position + self.gripper_delta, self.gripper_max 
                         )
                         self.gripper_position = new_pos
                         self.send_gripper_command()
@@ -188,6 +190,7 @@ class KeyboardController(Node):
                         self.gripper_position = new_pos
                         self.send_gripper_command()
 
+                    #TODO self.arm_joint_positions = IK(self.arm_ee_positions)
                     self.send_arm_command()
                     self.last_command_time = current_time
 
