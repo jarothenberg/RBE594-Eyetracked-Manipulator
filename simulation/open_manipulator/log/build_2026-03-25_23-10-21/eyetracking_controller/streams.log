@@ -1,0 +1,24 @@
+[0.536s] Invoking command in '/root/ros2_ws/src/open_manipulator/eyetracking_controller': PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/eyetracking_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/eyetracking_controller build --build-base /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build install --record /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/install.log --single-version-externally-managed install_data
+[0.646s] running egg_info
+[0.652s] writing ../build/eyetracking_controller/eyetracking_controller.egg-info/PKG-INFO
+[0.652s] writing dependency_links to ../build/eyetracking_controller/eyetracking_controller.egg-info/dependency_links.txt
+[0.652s] writing entry points to ../build/eyetracking_controller/eyetracking_controller.egg-info/entry_points.txt
+[0.652s] writing requirements to ../build/eyetracking_controller/eyetracking_controller.egg-info/requires.txt
+[0.653s] writing top-level names to ../build/eyetracking_controller/eyetracking_controller.egg-info/top_level.txt
+[0.665s] reading manifest file '../build/eyetracking_controller/eyetracking_controller.egg-info/SOURCES.txt'
+[0.665s] writing manifest file '../build/eyetracking_controller/eyetracking_controller.egg-info/SOURCES.txt'
+[0.665s] running build
+[0.665s] running build_py
+[0.665s] copying eyetracking_controller/eyetracking_control.py -> /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib/eyetracking_controller
+[0.666s] running install
+[0.668s] running install_lib
+[0.674s] copying /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib/eyetracking_controller/eyetracking_control.py -> /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller
+[0.675s] byte-compiling /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller/eyetracking_control.py to eyetracking_control.cpython-312.pyc
+[0.676s] running install_data
+[0.676s] running install_egg_info
+[0.683s] removing '/root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller-0.0.0-py3.12.egg-info' (and everything under it)
+[0.683s] Copying ../build/eyetracking_controller/eyetracking_controller.egg-info to /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller-0.0.0-py3.12.egg-info
+[0.684s] running install_scripts
+[0.732s] Installing eyetracking_control script to /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/eyetracking_controller
+[0.732s] writing list of installed files to '/root/ros2_ws/src/open_manipulator/build/eyetracking_controller/install.log'
+[0.746s] Invoked command in '/root/ros2_ws/src/open_manipulator/eyetracking_controller' returned '0': PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/eyetracking_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/eyetracking_controller build --build-base /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build install --record /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/install.log --single-version-externally-managed install_data

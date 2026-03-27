@@ -31,10 +31,30 @@ from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory
 from trajectory_msgs.msg import JointTrajectoryPoint
 
+sys.path.append('/root/ros2_ws/src/open_manipulator/EyeTrax/src')
+sys.path.append('./simulation/open_manipulator/EyeTrax/src')
 
+import argparse
+from eyetrax.app.demo import run_demo
 class KeyboardController(Node):
 
     def __init__(self):
+        args = argparse.Namespace(
+            filter='none',
+            ema_alpha=0.25,
+            camera=0,
+            calibration='9p',
+            grid_rows=5,
+            grid_cols=5,
+            grid_margin=0.1,
+            background=None, 
+            confidence=0.5, 
+            model='ridge', 
+            model_file=None
+        )
+
+        run_demo(args)
+
         super().__init__('keyboard_controller')
 
         # Publisher for arm joint control

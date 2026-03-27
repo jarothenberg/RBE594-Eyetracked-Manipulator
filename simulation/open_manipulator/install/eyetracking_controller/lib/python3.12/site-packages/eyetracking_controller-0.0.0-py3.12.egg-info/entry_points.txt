@@ -1,0 +1,2 @@
+[console_scripts]
+eyetracking_control = eyetracking_controller.eyetracking_control:main

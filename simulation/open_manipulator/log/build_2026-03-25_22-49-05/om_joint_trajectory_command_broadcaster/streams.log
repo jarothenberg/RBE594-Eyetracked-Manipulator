@@ -1,0 +1,73 @@
+[0.021s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/ros2_controller/om_joint_trajectory_command_broadcaster -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster
+[0.134s] -- The CXX compiler identification is GNU 13.3.0
+[0.134s] -- Detecting CXX compiler ABI info
+[0.142s] -- Detecting CXX compiler ABI info - done
+[0.148s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.148s] -- Detecting CXX compile features
+[0.148s] -- Detecting CXX compile features - done
+[0.153s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.247s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.350s] -- Found builtin_interfaces: 2.0.3 (/opt/ros/jazzy/share/builtin_interfaces/cmake)
+[0.394s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.407s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.422s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.438s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.452s] -- Found controller_interface: 4.39.2 (/opt/ros/jazzy/share/controller_interface/cmake)
+[0.609s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.649s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.658s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.676s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.716s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.718s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.727s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.728s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.733s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.740s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.985s] -- Found generate_parameter_library: 0.5.0 (/opt/ros/jazzy/share/generate_parameter_library/cmake)
+[0.988s] -- Found parameter_traits: 0.5.0 (/opt/ros/jazzy/share/parameter_traits/cmake)
+[1.077s] -- Configuring done (1.0s)
+[1.094s] -- Generating done (0.0s)
+[1.098s] -- Build files have been written to: /root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster
+[1.110s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/ros2_controller/om_joint_trajectory_command_broadcaster -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster
+[1.112s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster -- -j24 -l24
+[1.159s] [ 25%] [34m[1mRunning `/opt/ros/jazzy/bin/generate_parameter_library_cpp /root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster/include/om_joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster_parameters.hpp /root/ros2_ws/src/open_manipulator/ros2_controller/om_joint_trajectory_command_broadcaster/src/joint_trajectory_command_broadcaster_parameters.yaml `[0m
+[1.533s] [ 50%] [34m[1mCreating deprecated header file /root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster_parameters.hpp[0m
+[1.559s] [ 50%] Built target joint_trajectory_command_broadcaster_parameters
+[1.579s] [ 75%] [32mBuilding CXX object CMakeFiles/joint_trajectory_command_broadcaster.dir/src/joint_trajectory_command_broadcaster.cpp.o[0m
+[9.943s] [100%] [32m[1mLinking CXX shared library libjoint_trajectory_command_broadcaster.so[0m
+[10.241s] [100%] Built target joint_trajectory_command_broadcaster
+[10.252s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster -- -j24 -l24
+[10.254s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster
+[10.266s] -- Install configuration: ""
+[10.266s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/include/om_joint_trajectory_command_broadcaster
+[10.266s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/include/om_joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster_parameters.hpp
+[10.266s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/joint_trajectory_command_plugin.xml
+[10.266s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster
+[10.266s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster
+[10.266s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster/visibility_control.h
+[10.266s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/include/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster/joint_trajectory_command_broadcaster.hpp
+[10.267s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/lib/libjoint_trajectory_command_broadcaster.so
+[10.270s] -- Set non-toolchain portion of runtime path of "/root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/lib/libjoint_trajectory_command_broadcaster.so" to ""
+[10.270s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/library_path.sh
+[10.270s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/library_path.dsv
+[10.270s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/package_run_dependencies/om_joint_trajectory_command_broadcaster
+[10.270s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/parent_prefix_path/om_joint_trajectory_command_broadcaster
+[10.270s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/ament_prefix_path.sh
+[10.270s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/ament_prefix_path.dsv
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/path.sh
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/environment/path.dsv
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.bash
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.sh
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.zsh
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/local_setup.dsv
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/package.dsv
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/packages/om_joint_trajectory_command_broadcaster
+[10.271s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/ament_index/resource_index/controller_interface__pluginlib__plugin/om_joint_trajectory_command_broadcaster
+[10.272s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/export_joint_trajectory_command_broadcasterExport.cmake
+[10.272s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/export_joint_trajectory_command_broadcasterExport-noconfig.cmake
+[10.272s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/ament_cmake_export_dependencies-extras.cmake
+[10.272s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/ament_cmake_export_targets-extras.cmake
+[10.272s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/om_joint_trajectory_command_broadcasterConfig.cmake
+[10.272s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/cmake/om_joint_trajectory_command_broadcasterConfig-version.cmake
+[10.272s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_joint_trajectory_command_broadcaster/share/om_joint_trajectory_command_broadcaster/package.xml
+[10.273s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/om_joint_trajectory_command_broadcaster

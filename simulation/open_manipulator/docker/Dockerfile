@@ -7,7 +7,6 @@ COPY --from=librealsense /opt/librealsense /usr/local/
 COPY --from=librealsense /usr/local/lib/python3.12/dist-packages/pyrealsense2 /usr/local/lib/python3.12/dist-packages/pyrealsense2
 COPY --from=librealsense /usr/src/librealsense/config/99-realsense-libusb.rules /etc/udev/rules.d/
 COPY --from=librealsense /usr/src/librealsense/config/99-realsense-d4xx-mipi-dfu.rules /etc/udev/rules.d/
-ENV PYTHONPATH=$PYTHONPATH:/usr/local/lib
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -18,9 +17,19 @@ RUN apt-get update && apt-get install -y \
     libglfw3-dev \
     ros-${ROS_DISTRO}-image-transport-plugins \
     ros-${ROS_DISTRO}-usb-cam \
+    python3-venv \
+    python3-pip \
+    python3-full \
     vim \
     nano \
     && rm -rf /var/lib/apt/lists/*
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv --system-site-packages $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir screeninfo scikit-learn mediapipe
 
 ENV COLCON_WS=/root/ros2_ws
 WORKDIR ${COLCON_WS}
@@ -48,6 +57,7 @@ RUN bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && \
 RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc  && \
     echo "source ${COLCON_WS}/install/setup.bash" >> ~/.bashrc  && \
     echo "alias cb='colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release'" >> ~/.bashrc && \
-    echo "export ROS_DOMAIN_ID=30" >> ~/.bashrc
+    echo "export ROS_DOMAIN_ID=30" >> ~/.bashrc && \
+    echo "export PYTHONPATH=/opt/venv/lib/python3.12/site-packages:\$PYTHONPATH" >> ~/.bashrc
 
 CMD ["bash"]

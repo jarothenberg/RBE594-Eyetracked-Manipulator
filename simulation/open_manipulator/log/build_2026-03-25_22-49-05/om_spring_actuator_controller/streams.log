@@ -1,0 +1,72 @@
+[0.020s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/ros2_controller/om_spring_actuator_controller -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller
+[0.132s] -- The CXX compiler identification is GNU 13.3.0
+[0.132s] -- Detecting CXX compiler ABI info
+[0.140s] -- Detecting CXX compiler ABI info - done
+[0.145s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.145s] -- Detecting CXX compile features
+[0.145s] -- Detecting CXX compile features - done
+[0.150s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.244s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.359s] -- Found controller_interface: 4.39.2 (/opt/ros/jazzy/share/controller_interface/cmake)
+[0.430s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.446s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.461s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.476s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.623s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.663s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.666s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.687s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.725s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.727s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.739s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.743s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.750s] -- Found TinyXML2 via Config file: /usr/lib/x86_64-linux-gnu/cmake/tinyxml2
+[0.757s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.986s] -- Found generate_parameter_library: 0.5.0 (/opt/ros/jazzy/share/generate_parameter_library/cmake)
+[0.989s] -- Found parameter_traits: 0.5.0 (/opt/ros/jazzy/share/parameter_traits/cmake)
+[1.065s] -- Configuring done (1.0s)
+[1.079s] -- Generating done (0.0s)
+[1.082s] -- Build files have been written to: /root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller
+[1.090s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/ros2_controller/om_spring_actuator_controller -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller
+[1.090s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller -- -j24 -l24
+[1.133s] [ 25%] [34m[1mRunning `/opt/ros/jazzy/bin/generate_parameter_library_cpp /root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller/include/om_spring_actuator_controller/spring_actuator_controller_parameters.hpp /root/ros2_ws/src/open_manipulator/ros2_controller/om_spring_actuator_controller/src/spring_actuator_controller_parameters.yaml `[0m
+[1.501s] [ 50%] [34m[1mCreating deprecated header file /root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller/include/spring_actuator_controller_parameters.hpp[0m
+[1.522s] [ 50%] Built target spring_actuator_controller_parameters
+[1.544s] [ 75%] [32mBuilding CXX object CMakeFiles/spring_actuator_controller.dir/src/spring_actuator_controller.cpp.o[0m
+[5.158s] [100%] [32m[1mLinking CXX shared library libspring_actuator_controller.so[0m
+[5.474s] [100%] Built target spring_actuator_controller
+[5.494s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller -- -j24 -l24
+[5.495s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller
+[5.505s] -- Install configuration: ""
+[5.505s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/include/om_spring_actuator_controller
+[5.505s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/include/om_spring_actuator_controller/spring_actuator_controller_parameters.hpp
+[5.505s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/spring_actuator_plugin.xml
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/include/spring_actuator_controller
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/include/spring_actuator_controller/spring_actuator_controller
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/include/spring_actuator_controller/spring_actuator_controller/visibility_control.h
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/include/spring_actuator_controller/spring_actuator_controller/spring_actuator_controller.hpp
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/lib/libspring_actuator_controller.so
+[5.506s] -- Set non-toolchain portion of runtime path of "/root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/lib/libspring_actuator_controller.so" to ""
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/environment/library_path.sh
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/environment/library_path.dsv
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/ament_index/resource_index/package_run_dependencies/om_spring_actuator_controller
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/ament_index/resource_index/parent_prefix_path/om_spring_actuator_controller
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/environment/ament_prefix_path.sh
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/environment/ament_prefix_path.dsv
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/environment/path.sh
+[5.506s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/environment/path.dsv
+[5.507s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/local_setup.bash
+[5.507s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/local_setup.sh
+[5.507s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/local_setup.zsh
+[5.507s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/local_setup.dsv
+[5.507s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/package.dsv
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/ament_index/resource_index/packages/om_spring_actuator_controller
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/om_spring_actuator_controller
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/cmake/export_spring_actuator_controllerExport.cmake
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/cmake/export_spring_actuator_controllerExport-noconfig.cmake
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/cmake/ament_cmake_export_targets-extras.cmake
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/cmake/om_spring_actuator_controllerConfig.cmake
+[5.509s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/cmake/om_spring_actuator_controllerConfig-version.cmake
+[5.510s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_spring_actuator_controller/share/om_spring_actuator_controller/package.xml
+[5.512s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/om_spring_actuator_controller
