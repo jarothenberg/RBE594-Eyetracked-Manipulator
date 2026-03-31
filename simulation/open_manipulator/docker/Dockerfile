@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     libglfw3-dev \
     ros-${ROS_DISTRO}-image-transport-plugins \
     ros-${ROS_DISTRO}-usb-cam \
+    ros-${ROS_DISTRO}-rqt-image-view \
     vim \
     nano \
     && rm -rf /var/lib/apt/lists/*
