@@ -27,8 +27,20 @@ from eyetrax.utils.draw import draw_cursor, make_thumbnail
 from eyetrax.utils.screen import get_screen_size
 from eyetrax.utils.video import camera, fullscreen, iter_frames
 
+from geometry_msgs.msg import Point
+
+import rclpy
+from rclpy.node import Node
+
+class MinimalPublisher(Node):
+    def __init__(self):
+        super().__init__('minimal_publisher')
+        self.publisher_ = self.create_publisher(Point, 'eyetracking_pose', 10)
 
 def run_demo(args=None):
+    rclpy.init(args=None)
+    min_pub = MinimalPublisher()
+
     if args is None:
         args = parse_common_args()
 
@@ -115,6 +127,11 @@ def run_demo(args=None):
 
             if x_pred is not None and y_pred is not None and cursor_alpha > 0:
                 draw_cursor(canvas, x_pred, y_pred, cursor_alpha)
+                msg = Point()
+                msg.x = float(x_pred)
+                msg.y = float(y_pred)
+                msg.z = float(0)
+                min_pub.publisher_.publish(msg)
 
             thumb = make_thumbnail(frame, size=(cam_width, cam_height), border=BORDER)
             h, w = thumb.shape[:2]
