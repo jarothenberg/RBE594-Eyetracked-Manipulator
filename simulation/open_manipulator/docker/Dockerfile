@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     python3-venv \
     python3-pip \
     python3-full \
+    ros-${ROS_DISTRO}-rqt-image-view \
     vim \
     nano \
     && rm -rf /var/lib/apt/lists/*

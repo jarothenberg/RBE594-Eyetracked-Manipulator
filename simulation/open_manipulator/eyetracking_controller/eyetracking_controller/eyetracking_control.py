@@ -56,8 +56,8 @@ class KeyboardController(Node):
         self.arm_joint_names = ['joint1', 'joint2', 'joint3', 'joint4']
 
         self.linkLens = [0.128, 0.124, 0.126]
-        # self.linkOffs = [0.077, 0.024] # Simulated Robot
-        self.linkOffs = [0.096326, 0.024] # Real Robot
+        self.linkOffs = [0.077, 0.024] # Simulated Robot
+        # self.linkOffs = [0.096326, 0.024] # Real Robot
 
         self.arm_ee_positions = [0.274, 0, 0.205, 0]
 
