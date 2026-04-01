@@ -1,0 +1,72 @@
+[0.022s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/ros2_controller/om_gravity_compensation_controller -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller
+[0.136s] -- The CXX compiler identification is GNU 13.3.0
+[0.136s] -- Detecting CXX compiler ABI info
+[0.144s] -- Detecting CXX compiler ABI info - done
+[0.149s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.149s] -- Detecting CXX compile features
+[0.149s] -- Detecting CXX compile features - done
+[0.155s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.249s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.369s] -- Found angles: 1.16.1 (/opt/ros/jazzy/share/angles/cmake)
+[0.374s] -- Found control_msgs: 5.5.0 (/opt/ros/jazzy/share/control_msgs/cmake)
+[0.435s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.456s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.471s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.485s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.603s] -- Found control_toolbox: 4.9.0 (/opt/ros/jazzy/share/control_toolbox/cmake)
+[0.661s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.661s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.725s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.736s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.754s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.014s] -- Found eigen3_cmake_module: 0.3.0 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[1.015s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[1.015s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[1.079s] -- Found controller_interface: 4.39.2 (/opt/ros/jazzy/share/controller_interface/cmake)
+[1.139s] -- Found kdl_parser: 2.11.0 (/opt/ros/jazzy/share/kdl_parser/cmake)
+[1.223s] -- Configuring done (1.2s)
+[1.235s] -- Generating done (0.0s)
+[1.239s] -- Build files have been written to: /root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller
+[1.247s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/ros2_controller/om_gravity_compensation_controller -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller
+[1.249s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller -- -j24 -l24
+[1.304s] [ 25%] [34m[1mRunning `/opt/ros/jazzy/bin/generate_parameter_library_cpp /root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller/include/om_gravity_compensation_controller/gravity_compensation_controller_parameters.hpp /root/ros2_ws/src/open_manipulator/ros2_controller/om_gravity_compensation_controller/src/gravity_compensation_controller_parameters.yaml `[0m
+[1.695s] [ 50%] [34m[1mCreating deprecated header file /root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller/include/gravity_compensation_controller_parameters.hpp[0m
+[1.708s] [ 50%] Built target gravity_compensation_controller_parameters
+[1.722s] [ 75%] [32mBuilding CXX object CMakeFiles/gravity_compensation_controller.dir/src/gravity_compensation_controller.cpp.o[0m
+[10.980s] [100%] [32m[1mLinking CXX shared library libgravity_compensation_controller.so[0m
+[11.285s] [100%] Built target gravity_compensation_controller
+[11.299s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller -- -j24 -l24
+[11.300s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller
+[11.310s] -- Install configuration: ""
+[11.310s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/include/om_gravity_compensation_controller
+[11.310s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/include/om_gravity_compensation_controller/gravity_compensation_controller_parameters.hpp
+[11.310s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/gravity_compensation_plugin.xml
+[11.310s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/include/gravity_compensation_controller
+[11.311s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller
+[11.311s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller/visibility_control.h
+[11.311s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/include/gravity_compensation_controller/gravity_compensation_controller/gravity_compensation_controller.hpp
+[11.311s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/lib/libgravity_compensation_controller.so
+[11.314s] -- Set non-toolchain portion of runtime path of "/root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/lib/libgravity_compensation_controller.so" to ""
+[11.315s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/library_path.sh
+[11.315s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/library_path.dsv
+[11.315s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/ament_index/resource_index/package_run_dependencies/om_gravity_compensation_controller
+[11.315s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/ament_index/resource_index/parent_prefix_path/om_gravity_compensation_controller
+[11.315s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/ament_prefix_path.sh
+[11.315s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/ament_prefix_path.dsv
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/path.sh
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/environment/path.dsv
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.bash
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.sh
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.zsh
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/local_setup.dsv
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/package.dsv
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/ament_index/resource_index/packages/om_gravity_compensation_controller
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/ament_index/resource_index/controller_interface__pluginlib__plugin/om_gravity_compensation_controller
+[11.316s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/export_gravity_compensation_controllerExport.cmake
+[11.317s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/export_gravity_compensation_controllerExport-noconfig.cmake
+[11.318s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[11.318s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/ament_cmake_export_targets-extras.cmake
+[11.318s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/om_gravity_compensation_controllerConfig.cmake
+[11.318s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/cmake/om_gravity_compensation_controllerConfig-version.cmake
+[11.318s] -- Installing: /root/ros2_ws/src/open_manipulator/install/om_gravity_compensation_controller/share/om_gravity_compensation_controller/package.xml
+[11.319s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller

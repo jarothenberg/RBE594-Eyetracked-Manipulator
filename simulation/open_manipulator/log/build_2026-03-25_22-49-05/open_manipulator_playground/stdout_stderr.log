@@ -1,0 +1,77 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Found moveit_ros_planning_interface: 2.12.3 (/opt/ros/jazzy/share/moveit_ros_planning_interface/cmake)
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: date_time filesystem program_options system thread 
+-- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: chrono date_time filesystem iostreams program_options regex serialization system thread 
+-- Found parameter_traits: 0.5.0 (/opt/ros/jazzy/share/parameter_traits/cmake)
+-- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found rclcpp_lifecycle: 28.1.12 (/opt/ros/jazzy/share/rclcpp_lifecycle/cmake)
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: filesystem 
+-- Found Eigen3: TRUE (found version "3.4.0") 
+-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: system filesystem date_time program_options thread chrono 
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: thread system filesystem regex date_time program_options 
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake (found version "1.83.0") found components: system filesystem date_time program_options thread 
+-- Configuring done (1.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /root/ros2_ws/src/open_manipulator/build/open_manipulator_playground
+[ 16%] [32mBuilding CXX object CMakeFiles/omy_f3m_hello_moveit.dir/src/omy_f3m_hello_moveit.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/omy_3m_hello_moveit.dir/src/omy_3m_hello_moveit.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/open_manipulator_x_hello_moveit.dir/src/open_manipulator_x_hello_moveit.cpp.o[0m
+[ 66%] [32m[1mLinking CXX executable omy_3m_hello_moveit[0m
+[ 66%] Built target omy_3m_hello_moveit
+[ 83%] [32m[1mLinking CXX executable omy_f3m_hello_moveit[0m
+[ 83%] Built target omy_f3m_hello_moveit
+[100%] [32m[1mLinking CXX executable open_manipulator_x_hello_moveit[0m
+[100%] Built target open_manipulator_x_hello_moveit
+-- Install configuration: ""
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/include
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/include/open_manipulator_playground
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/include/open_manipulator_playground/omy_f3m_hello_moveit.h
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/include/open_manipulator_playground/omy_3m_hello_moveit.h
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/include/open_manipulator_playground/open_manipulator_x_hello_moveit.h
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/lib/open_manipulator_playground/open_manipulator_x_hello_moveit
+-- Set non-toolchain portion of runtime path of "/root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/lib/open_manipulator_playground/open_manipulator_x_hello_moveit" to ""
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/lib/open_manipulator_playground/omy_f3m_hello_moveit
+-- Set non-toolchain portion of runtime path of "/root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/lib/open_manipulator_playground/omy_f3m_hello_moveit" to ""
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/lib/open_manipulator_playground/omy_3m_hello_moveit
+-- Set non-toolchain portion of runtime path of "/root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/lib/open_manipulator_playground/omy_3m_hello_moveit" to ""
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/ament_index/resource_index/package_run_dependencies/open_manipulator_playground
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/ament_index/resource_index/parent_prefix_path/open_manipulator_playground
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/environment/ament_prefix_path.sh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/environment/ament_prefix_path.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/environment/path.sh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/environment/path.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/local_setup.bash
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/local_setup.sh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/local_setup.zsh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/local_setup.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/package.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/ament_index/resource_index/packages/open_manipulator_playground
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/cmake/export_open_manipulator_playgroundExport.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/cmake/export_open_manipulator_playgroundExport-noconfig.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/cmake/ament_cmake_export_targets-extras.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/cmake/open_manipulator_playgroundConfig.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/cmake/open_manipulator_playgroundConfig-version.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_playground/share/open_manipulator_playground/package.xml

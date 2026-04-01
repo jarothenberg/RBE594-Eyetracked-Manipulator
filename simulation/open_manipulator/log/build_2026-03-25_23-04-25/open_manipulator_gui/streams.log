@@ -1,0 +1,69 @@
+[0.048s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_gui': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop:/root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup:/root/ros2_ws/src/open_manipulator/install/eyetracking_controller:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/open_manipulator_gui -- -j24 -l24
+[0.164s] [ 14%] Built target copy_ui_headers
+[0.164s] [ 14%] Built target open_manipulator_x_gui_node_autogen_timestamp_deps
+[0.164s] [ 14%] Built target omy_3m_gui_node_autogen_timestamp_deps
+[0.164s] [ 14%] Built target omx_f_gui_node_autogen_timestamp_deps
+[0.164s] [ 14%] Built target omy_f3m_gui_node_autogen_timestamp_deps
+[0.165s] [ 19%] Built target omy_f3m_gui_node_autogen
+[0.165s] [ 19%] Built target omy_3m_gui_node_autogen
+[0.165s] [ 19%] Built target open_manipulator_x_gui_node_autogen
+[0.165s] [ 21%] Built target omx_f_gui_node_autogen
+[0.165s] [ 60%] Built target omy_f3m_gui_node
+[0.165s] [ 60%] Built target omy_3m_gui_node
+[0.165s] [ 80%] Built target omx_f_gui_node
+[0.202s] [100%] Built target open_manipulator_x_gui_node
+[0.319s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_gui' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop:/root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup:/root/ros2_ws/src/open_manipulator/install/eyetracking_controller:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/open_manipulator_gui -- -j24 -l24
+[0.319s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_gui': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop:/root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup:/root/ros2_ws/src/open_manipulator/install/eyetracking_controller:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/open_manipulator_gui
+[0.330s] -- Install configuration: ""
+[0.330s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/lib/open_manipulator_gui/open_manipulator_x_gui_node
+[0.330s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/lib/open_manipulator_gui/omy_3m_gui_node
+[0.330s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/lib/open_manipulator_gui/omy_f3m_gui_node
+[0.330s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/lib/open_manipulator_gui/omx_f_gui_node
+[0.330s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include
+[0.330s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omx_f_gui
+[0.330s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omx_f_gui/main_window.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omx_f_gui/qnode.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omy_3m_gui
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omy_3m_gui/main_window.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omy_3m_gui/qnode.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omy_f3m_gui
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omy_f3m_gui/main_window.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/omy_f3m_gui/qnode.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/open_manipulator_x_gui
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/open_manipulator_x_gui/main_window.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/include/open_manipulator_x_gui/qnode.hpp
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/launch
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/launch/omy_f3m_gui.launch.py
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/launch/open_manipulator_x_gui.launch.py
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/launch/omy_3m_gui.launch.py
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/launch/omx_f_gui.launch.py
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/ui
+[0.331s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/ui/omx_f_main_window.ui
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/ui/omy_3m_main_window.ui
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/ui/open_manipulator_x_main_window.ui
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/ui/omy_f3m_main_window.ui
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/config
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/config/omy_3m_joint_log.csv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/config/omy_f3m_joint_log.csv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/config/omx_f_joint_log.csv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/config/open_manipulator_x_joint_log.csv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/environment/library_path.sh
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/environment/library_path.dsv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/ament_index/resource_index/package_run_dependencies/open_manipulator_gui
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/ament_index/resource_index/parent_prefix_path/open_manipulator_gui
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/environment/ament_prefix_path.sh
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/environment/ament_prefix_path.dsv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/environment/path.sh
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/environment/path.dsv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/local_setup.bash
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/local_setup.sh
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/local_setup.zsh
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/local_setup.dsv
+[0.332s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/package.dsv
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/ament_index/resource_index/packages/open_manipulator_gui
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/cmake/ament_cmake_export_libraries-extras.cmake
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/cmake/open_manipulator_guiConfig.cmake
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/cmake/open_manipulator_guiConfig-version.cmake
+[0.332s] -- Up-to-date: /root/ros2_ws/src/open_manipulator/install/open_manipulator_gui/share/open_manipulator_gui/package.xml
+[0.346s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_gui' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop:/root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup:/root/ros2_ws/src/open_manipulator/install/eyetracking_controller:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/open_manipulator_gui

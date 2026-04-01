@@ -1,0 +1,63 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (0.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /root/ros2_ws/src/open_manipulator/build/open_manipulator_moveit_config
+-- Install configuration: ""
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/launch
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/launch/omy_3m_moveit.launch.py
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/launch/omx_f_moveit.launch.py
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/launch/open_manipulator_x_moveit.launch.py
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/launch/omy_f3m_moveit.launch.py
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/pilz_industrial_motion_planner_planning.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_f3m
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_f3m/omy_f3m.srdf
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_f3m/moveit_controllers.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_f3m/joint_limits.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/ompl_planning.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/chomp_planning.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/moveit.rviz
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/kinematics.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/pilz_cartesian_limits.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_3m
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_3m/omy_3m.srdf
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_3m/moveit_controllers.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omy_3m/joint_limits.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omx_f
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omx_f/omx_f.srdf
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omx_f/kinematics.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omx_f/moveit_controllers.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/omx_f/joint_limits.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/open_manipulator_x
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/open_manipulator_x/open_manipulator_x.srdf
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/open_manipulator_x/kinematics.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/open_manipulator_x/moveit_controllers.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/config/open_manipulator_x/joint_limits.yaml
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/ament_index/resource_index/package_run_dependencies/open_manipulator_moveit_config
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/ament_index/resource_index/parent_prefix_path/open_manipulator_moveit_config
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/environment/ament_prefix_path.sh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/environment/ament_prefix_path.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/environment/path.sh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/environment/path.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/local_setup.bash
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/local_setup.sh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/local_setup.zsh
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/local_setup.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/package.dsv
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/ament_index/resource_index/packages/open_manipulator_moveit_config
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/cmake/open_manipulator_moveit_configConfig.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/cmake/open_manipulator_moveit_configConfig-version.cmake
+-- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_moveit_config/share/open_manipulator_moveit_config/package.xml

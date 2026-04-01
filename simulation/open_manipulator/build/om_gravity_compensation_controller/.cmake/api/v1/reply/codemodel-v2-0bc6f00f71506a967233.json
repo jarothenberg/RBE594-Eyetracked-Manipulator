@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-bf76c3c33eae7a5ce13c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "om_gravity_compensation_controller",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "gravity_compensation_controller::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gravity_compensation_controller-bbc66de836a125550c36.json",
+					"name" : "gravity_compensation_controller",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "gravity_compensation_controller_parameters::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-gravity_compensation_controller_parameters-a77b30f463865b10bc68.json",
+					"name" : "gravity_compensation_controller_parameters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "om_gravity_compensation_controller_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-om_gravity_compensation_controller_uninstall-1b3eac833644d45ab001.json",
+					"name" : "om_gravity_compensation_controller_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-439615d4114fc1c5839c.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/root/ros2_ws/src/open_manipulator/build/om_gravity_compensation_controller",
+		"source" : "/root/ros2_ws/src/open_manipulator/ros2_controller/om_gravity_compensation_controller"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

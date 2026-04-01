@@ -48,7 +48,7 @@ setup(
     entry_points={
         'console_scripts': [
             'joint_trajectory_executor = open_manipulator_bringup.joint_trajectory_executor:main',
-            'om_create_udev_rules = open_manipulator_bringup.om_create_udev_rules:main',
+            'om_create_udev_rules = open_manipulator_bringup.om_create_udev_rules:main'
         ],
     },
 )

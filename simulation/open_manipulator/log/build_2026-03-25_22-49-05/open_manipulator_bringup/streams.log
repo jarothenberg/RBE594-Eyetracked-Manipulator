@@ -1,0 +1,99 @@
+[0.376s] Invoking command in '/root/ros2_ws/src/open_manipulator/open_manipulator_bringup': AMENT_PREFIX_PATH=/root/ros2_ws/src/open_manipulator/install/open_manipulator_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/src/open_manipulator/install/open_manipulator_description:${CMAKE_PREFIX_PATH} PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/open_manipulator_bringup build --build-base /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build install --record /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/install.log --single-version-externally-managed install_data
+[0.493s] running egg_info
+[0.495s] creating ../build/open_manipulator_bringup/open_manipulator_bringup.egg-info
+[0.504s] writing ../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/PKG-INFO
+[0.504s] writing dependency_links to ../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/dependency_links.txt
+[0.505s] writing entry points to ../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/entry_points.txt
+[0.505s] writing requirements to ../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/requires.txt
+[0.505s] writing top-level names to ../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/top_level.txt
+[0.505s] writing manifest file '../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/SOURCES.txt'
+[0.518s] reading manifest file '../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/SOURCES.txt'
+[0.519s] writing manifest file '../build/open_manipulator_bringup/open_manipulator_bringup.egg-info/SOURCES.txt'
+[0.519s] running build
+[0.519s] running build_py
+[0.519s] creating /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build
+[0.519s] creating /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib
+[0.520s] creating /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib/open_manipulator_bringup
+[0.520s] copying open_manipulator_bringup/__init__.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib/open_manipulator_bringup
+[0.520s] copying open_manipulator_bringup/joint_trajectory_executor.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib/open_manipulator_bringup
+[0.520s] copying open_manipulator_bringup/om_create_udev_rules.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib/open_manipulator_bringup
+[0.520s] running install
+[0.521s] running install_lib
+[0.527s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup
+[0.527s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib/open_manipulator_bringup/__init__.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup
+[0.527s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib/open_manipulator_bringup/joint_trajectory_executor.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup
+[0.527s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build/lib/open_manipulator_bringup/om_create_udev_rules.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup
+[0.528s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup/__init__.py to __init__.cpython-312.pyc
+[0.528s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup/joint_trajectory_executor.py to joint_trajectory_executor.cpython-312.pyc
+[0.529s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup/om_create_udev_rules.py to om_create_udev_rules.cpython-312.pyc
+[0.529s] running install_data
+[0.529s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/ament_index
+[0.529s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/ament_index/resource_index
+[0.529s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/ament_index/resource_index/packages
+[0.529s] copying resource/open_manipulator_bringup -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/ament_index/resource_index/packages
+[0.529s] copying package.xml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup
+[0.529s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omy_3m.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omx_f_follower_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omy_f3m.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/camera_realsense.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omx_f.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omy_f3m_leader_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/open_manipulator_x.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omx_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omy_3m_unpack.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omy_f3m_follower_ai_gazebo.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/open_manipulator_x_gazebo.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omy_f3m_gazebo.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/camera_usb_cam.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.530s] copying launch/omy_l100_leader_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omy_f3m_follower_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omy_l100_follower_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omx_l_leader_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omy_ai_reverse.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omx_f_gazebo.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omy_3m_gazebo.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omx_f_follower_ai_gazebo.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omy_ai.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] copying launch/omy_3m_pack.launch.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/launch
+[0.531s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config
+[0.531s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/open_manipulator_x
+[0.531s] copying config/open_manipulator_x/initial_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/open_manipulator_x
+[0.531s] copying config/open_manipulator_x/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/open_manipulator_x
+[0.531s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_3m
+[0.531s] copying config/omy_3m/pack_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_3m
+[0.531s] copying config/omy_3m/qc_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_3m
+[0.531s] copying config/omy_3m/initial_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_3m
+[0.531s] copying config/omy_3m/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_3m
+[0.531s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m
+[0.531s] copying config/omy_f3m/initial_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m
+[0.531s] copying config/omy_f3m/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m
+[0.531s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m_follower_ai
+[0.531s] copying config/omy_f3m_follower_ai/qc_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m_follower_ai
+[0.531s] copying config/omy_f3m_follower_ai/initial_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m_follower_ai
+[0.531s] copying config/omy_f3m_follower_ai/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m_follower_ai
+[0.531s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m_leader_ai
+[0.531s] copying config/omy_f3m_leader_ai/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_f3m_leader_ai
+[0.532s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_l100_follower_ai
+[0.532s] copying config/omy_l100_follower_ai/initial_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_l100_follower_ai
+[0.532s] copying config/omy_l100_follower_ai/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_l100_follower_ai
+[0.532s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_l100_leader_ai
+[0.532s] copying config/omy_l100_leader_ai/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omy_l100_leader_ai
+[0.532s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_f
+[0.532s] copying config/omx_f/initial_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_f
+[0.532s] copying config/omx_f/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_f
+[0.532s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_f_follower_ai
+[0.532s] copying config/omx_f_follower_ai/initial_positions.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_f_follower_ai
+[0.532s] copying config/omx_f_follower_ai/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_f_follower_ai
+[0.532s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_l_leader_ai
+[0.532s] copying config/omx_l_leader_ai/hardware_controller_manager.yaml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/config/omx_l_leader_ai
+[0.532s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/worlds
+[0.532s] copying worlds/empty_world.sdf -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup/worlds
+[0.532s] copying open-manipulator-cdc.rules -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/share/open_manipulator_bringup
+[0.532s] running install_egg_info
+[0.537s] Copying ../build/open_manipulator_bringup/open_manipulator_bringup.egg-info to /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages/open_manipulator_bringup-4.1.2-py3.12.egg-info
+[0.538s] running install_scripts
+[0.584s] Installing joint_trajectory_executor script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/open_manipulator_bringup
+[0.584s] Installing om_create_udev_rules script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/open_manipulator_bringup
+[0.584s] writing list of installed files to '/root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/install.log'
+[0.599s] Invoked command in '/root/ros2_ws/src/open_manipulator/open_manipulator_bringup' returned '0': AMENT_PREFIX_PATH=/root/ros2_ws/src/open_manipulator/install/open_manipulator_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/src/open_manipulator/install/open_manipulator_description:${CMAKE_PREFIX_PATH} PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/open_manipulator_bringup/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/open_manipulator_bringup build --build-base /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/build install --record /root/ros2_ws/src/open_manipulator/build/open_manipulator_bringup/install.log --single-version-externally-managed install_data

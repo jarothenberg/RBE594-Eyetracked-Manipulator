@@ -1,0 +1,50 @@
+[0.459s] Invoking command in '/root/ros2_ws/src/open_manipulator/open_manipulator_teleop': PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/open_manipulator_teleop build --build-base /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build install --record /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/install.log --single-version-externally-managed install_data
+[0.570s] running egg_info
+[0.570s] creating ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info
+[0.576s] writing ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/PKG-INFO
+[0.576s] writing dependency_links to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/dependency_links.txt
+[0.576s] writing entry points to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/entry_points.txt
+[0.576s] writing requirements to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/requires.txt
+[0.576s] writing top-level names to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/top_level.txt
+[0.576s] writing manifest file '../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/SOURCES.txt'
+[0.589s] reading manifest file '../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/SOURCES.txt'
+[0.589s] writing manifest file '../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/SOURCES.txt'
+[0.589s] running build
+[0.589s] running build_py
+[0.589s] creating /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build
+[0.589s] creating /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib
+[0.589s] creating /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop
+[0.589s] copying open_manipulator_teleop/omx_f_teleop.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop
+[0.590s] copying open_manipulator_teleop/__init__.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop
+[0.590s] copying open_manipulator_teleop/open_manipulator_x_teleop.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop
+[0.590s] copying open_manipulator_teleop/omy_f3m_teleop.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop
+[0.590s] copying open_manipulator_teleop/omy_3m_teleop.py -> /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop
+[0.590s] running install
+[0.592s] running install_lib
+[0.598s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop
+[0.598s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop/omx_f_teleop.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop
+[0.598s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop/__init__.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop
+[0.598s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop/open_manipulator_x_teleop.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop
+[0.599s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop/omy_f3m_teleop.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop
+[0.599s] copying /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build/lib/open_manipulator_teleop/omy_3m_teleop.py -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop
+[0.599s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop/omx_f_teleop.py to omx_f_teleop.cpython-312.pyc
+[0.600s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop/__init__.py to __init__.cpython-312.pyc
+[0.600s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop/open_manipulator_x_teleop.py to open_manipulator_x_teleop.cpython-312.pyc
+[0.601s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop/omy_f3m_teleop.py to omy_f3m_teleop.cpython-312.pyc
+[0.601s] byte-compiling /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop/omy_3m_teleop.py to omy_3m_teleop.cpython-312.pyc
+[0.602s] running install_data
+[0.602s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/share/ament_index
+[0.602s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/share/ament_index/resource_index
+[0.602s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/share/ament_index/resource_index/packages
+[0.602s] copying resource/open_manipulator_teleop -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/share/ament_index/resource_index/packages
+[0.602s] copying package.xml -> /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/share/open_manipulator_teleop
+[0.602s] creating /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/share/open_manipulator_teleop/launch
+[0.602s] running install_egg_info
+[0.609s] Copying ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop-4.1.2-py3.12.egg-info
+[0.610s] running install_scripts
+[0.657s] Installing omx_f_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.657s] Installing omy_3m_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.657s] Installing omy_f3m_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.657s] Installing open_manipulator_x_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.657s] writing list of installed files to '/root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/install.log'
+[0.786s] Invoked command in '/root/ros2_ws/src/open_manipulator/open_manipulator_teleop' returned '0': PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/open_manipulator_teleop build --build-base /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build install --record /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/install.log --single-version-externally-managed install_data

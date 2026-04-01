@@ -1,0 +1,24 @@
+[0.527s] Invoking command in '/root/ros2_ws/src/open_manipulator/open_manipulator_teleop': PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/open_manipulator_teleop build --build-base /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build install --record /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/install.log --single-version-externally-managed install_data
+[0.649s] running egg_info
+[0.655s] writing ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/PKG-INFO
+[0.655s] writing dependency_links to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/dependency_links.txt
+[0.655s] writing entry points to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/entry_points.txt
+[0.655s] writing requirements to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/requires.txt
+[0.655s] writing top-level names to ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/top_level.txt
+[0.668s] reading manifest file '../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/SOURCES.txt'
+[0.668s] writing manifest file '../build/open_manipulator_teleop/open_manipulator_teleop.egg-info/SOURCES.txt'
+[0.668s] running build
+[0.668s] running build_py
+[0.668s] running install
+[0.671s] running install_lib
+[0.677s] running install_data
+[0.678s] running install_egg_info
+[0.684s] removing '/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop-4.1.2-py3.12.egg-info' (and everything under it)
+[0.684s] Copying ../build/open_manipulator_teleop/open_manipulator_teleop.egg-info to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages/open_manipulator_teleop-4.1.2-py3.12.egg-info
+[0.685s] running install_scripts
+[0.734s] Installing omx_f_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.734s] Installing omy_3m_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.734s] Installing omy_f3m_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.734s] Installing open_manipulator_x_teleop script to /root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/open_manipulator_teleop
+[0.734s] writing list of installed files to '/root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/install.log'
+[0.747s] Invoked command in '/root/ros2_ws/src/open_manipulator/open_manipulator_teleop' returned '0': PYTHONPATH=/root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/root/ros2_ws/src/open_manipulator/install/open_manipulator_teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/open_manipulator_teleop build --build-base /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/build install --record /root/ros2_ws/src/open_manipulator/build/open_manipulator_teleop/install.log --single-version-externally-managed install_data

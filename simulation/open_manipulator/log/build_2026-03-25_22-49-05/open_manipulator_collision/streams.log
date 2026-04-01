@@ -1,0 +1,72 @@
+[0.018s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_collision': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/open_manipulator_collision -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/open_manipulator_collision
+[0.130s] -- The C compiler identification is GNU 13.3.0
+[0.131s] -- The CXX compiler identification is GNU 13.3.0
+[0.131s] -- Detecting C compiler ABI info
+[0.174s] -- Detecting C compiler ABI info - done
+[0.180s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.180s] -- Detecting C compile features
+[0.180s] -- Detecting C compile features - done
+[0.185s] -- Detecting CXX compiler ABI info
+[0.247s] -- Detecting CXX compiler ABI info - done
+[0.251s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.251s] -- Detecting CXX compile features
+[0.252s] -- Detecting CXX compile features - done
+[0.257s] -- Found ament_cmake: 2.5.4 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.348s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.467s] -- Found rclcpp: 28.1.12 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.520s] -- Found rosidl_generator_c: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.534s] -- Found rosidl_generator_cpp: 4.6.6 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.548s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.563s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.627s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.632s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.710s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[0.728s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[0.745s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.803s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[0.811s] -- Found sensor_msgs: 5.3.6 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.857s] -- Found visualization_msgs: 5.3.6 (/opt/ros/jazzy/share/visualization_msgs/cmake)
+[0.877s] -- Found kdl_parser: 2.11.0 (/opt/ros/jazzy/share/kdl_parser/cmake)
+[0.887s] -- Found eigen3_cmake_module: 0.3.0 (/opt/ros/jazzy/share/eigen3_cmake_module/cmake)
+[0.888s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[0.888s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[0.896s] -- Found urdf: 2.10.0 (/opt/ros/jazzy/share/urdf/cmake)
+[0.979s] -- Configuring done (1.0s)
+[0.986s] -- Generating done (0.0s)
+[0.988s] -- Build files have been written to: /root/ros2_ws/src/open_manipulator/build/open_manipulator_collision
+[0.998s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_collision' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake /root/ros2_ws/src/open_manipulator/open_manipulator_collision -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/src/open_manipulator/install/open_manipulator_collision
+[0.999s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_collision': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/open_manipulator_collision -- -j24 -l24
+[1.046s] [ 50%] [32mBuilding CXX object CMakeFiles/self_collision_node.dir/src/self_collision_node.cpp.o[0m
+[11.126s] [100%] [32m[1mLinking CXX executable self_collision_node[0m
+[11.395s] [100%] Built target self_collision_node
+[11.408s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_collision' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --build /root/ros2_ws/src/open_manipulator/build/open_manipulator_collision -- -j24 -l24
+[11.408s] Invoking command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_collision': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/open_manipulator_collision
+[11.416s] -- Install configuration: ""
+[11.416s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/lib/open_manipulator_collision/self_collision_node
+[11.419s] -- Set non-toolchain portion of runtime path of "/root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/lib/open_manipulator_collision/self_collision_node" to ""
+[11.419s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/include/
+[11.419s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/include//open_manipulator_collision
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/include//open_manipulator_collision/self_collision_node.hpp
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/self_collision.launch.py
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/environment/library_path.sh
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/environment/library_path.dsv
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/ament_index/resource_index/package_run_dependencies/open_manipulator_collision
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/ament_index/resource_index/parent_prefix_path/open_manipulator_collision
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/environment/ament_prefix_path.sh
+[11.420s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/environment/ament_prefix_path.dsv
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/environment/path.sh
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/environment/path.dsv
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/local_setup.bash
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/local_setup.sh
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/local_setup.zsh
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/local_setup.dsv
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/package.dsv
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/ament_index/resource_index/packages/open_manipulator_collision
+[11.421s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/cmake/ament_cmake_export_dependencies-extras.cmake
+[11.422s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/cmake/ament_cmake_export_include_directories-extras.cmake
+[11.422s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/cmake/ament_cmake_export_libraries-extras.cmake
+[11.422s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/cmake/open_manipulator_collisionConfig.cmake
+[11.422s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/cmake/open_manipulator_collisionConfig-version.cmake
+[11.422s] -- Installing: /root/ros2_ws/src/open_manipulator/install/open_manipulator_collision/share/open_manipulator_collision/package.xml
+[11.422s] Invoked command in '/root/ros2_ws/src/open_manipulator/build/open_manipulator_collision' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/root/ros2_ws/install/eyetracking_controller:/root/ros2_ws/install/open_manipulator_teleop:/root/ros2_ws/install/open_manipulator_bringup:/opt/ros/jazzy /usr/bin/cmake --install /root/ros2_ws/src/open_manipulator/build/open_manipulator_collision

@@ -1,0 +1,97 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-49c14252359f21657384.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.15"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "open_manipulator_playground",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "omy_3m_hello_moveit::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-omy_3m_hello_moveit-cbec35df83d18e85f307.json",
+					"name" : "omy_3m_hello_moveit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "omy_f3m_hello_moveit::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-omy_f3m_hello_moveit-02f7c272757e54eadd1c.json",
+					"name" : "omy_f3m_hello_moveit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "open_manipulator_playground_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-open_manipulator_playground_uninstall-d58d35a6a9f08f4e24f7.json",
+					"name" : "open_manipulator_playground_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "open_manipulator_x_hello_moveit::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-open_manipulator_x_hello_moveit-512438f2aab46f2a46d6.json",
+					"name" : "open_manipulator_x_hello_moveit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-ad621f0b0a8a1fec1668.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/root/ros2_ws/src/open_manipulator/build/open_manipulator_playground",
+		"source" : "/root/ros2_ws/src/open_manipulator/open_manipulator_playground"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

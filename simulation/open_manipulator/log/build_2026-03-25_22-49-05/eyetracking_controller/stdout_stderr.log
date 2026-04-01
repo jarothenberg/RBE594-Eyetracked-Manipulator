@@ -1,0 +1,35 @@
+running egg_info
+creating ../build/eyetracking_controller/eyetracking_controller.egg-info
+writing ../build/eyetracking_controller/eyetracking_controller.egg-info/PKG-INFO
+writing dependency_links to ../build/eyetracking_controller/eyetracking_controller.egg-info/dependency_links.txt
+writing entry points to ../build/eyetracking_controller/eyetracking_controller.egg-info/entry_points.txt
+writing requirements to ../build/eyetracking_controller/eyetracking_controller.egg-info/requires.txt
+writing top-level names to ../build/eyetracking_controller/eyetracking_controller.egg-info/top_level.txt
+writing manifest file '../build/eyetracking_controller/eyetracking_controller.egg-info/SOURCES.txt'
+reading manifest file '../build/eyetracking_controller/eyetracking_controller.egg-info/SOURCES.txt'
+writing manifest file '../build/eyetracking_controller/eyetracking_controller.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build
+creating /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib
+creating /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib/eyetracking_controller
+copying eyetracking_controller/eyetracking_control.py -> /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib/eyetracking_controller
+copying eyetracking_controller/__init__.py -> /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib/eyetracking_controller
+running install
+running install_lib
+creating /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller
+copying /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib/eyetracking_controller/eyetracking_control.py -> /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller
+copying /root/ros2_ws/src/open_manipulator/build/eyetracking_controller/build/lib/eyetracking_controller/__init__.py -> /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller
+byte-compiling /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller/eyetracking_control.py to eyetracking_control.cpython-312.pyc
+byte-compiling /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller/__init__.py to __init__.cpython-312.pyc
+running install_data
+creating /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/share/ament_index
+creating /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/share/ament_index/resource_index
+creating /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/share/ament_index/resource_index/packages
+copying resource/eyetracking_controller -> /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/share/ament_index/resource_index/packages
+copying package.xml -> /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/share/eyetracking_controller
+running install_egg_info
+Copying ../build/eyetracking_controller/eyetracking_controller.egg-info to /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/python3.12/site-packages/eyetracking_controller-0.0.0-py3.12.egg-info
+running install_scripts
+Installing eyetracking_control script to /root/ros2_ws/src/open_manipulator/install/eyetracking_controller/lib/eyetracking_controller
+writing list of installed files to '/root/ros2_ws/src/open_manipulator/build/eyetracking_controller/install.log'
