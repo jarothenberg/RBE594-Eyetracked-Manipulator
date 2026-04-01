@@ -103,15 +103,15 @@ def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_
 
 ## Values
 # interior Corners in x direction
-boardX = 9
+boardX = 10
 # interior Corners in y direction
-boardY = 6
+boardY = 4
 # Location of calibration images
-calib_imgs_dir = 'test_calib_data/'
+calib_imgs_dir = '2.0_megapixel_cam_data/'
 # Location of folder to save npy arrays
-calib_results_dir = 'test_calib_results/'
+calib_results_dir = '2.0_megapixel_cam_results/'
 # Name of test image file to undistort
-test_img_file = 'left12.jpg'
+test_img_file = '2026-04-01-184057.jpg'
 
 # Running function to perform calibration, print/save metrics, and undistort image
 perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
@@ -138,7 +138,7 @@ def crop_checkerboard(img_file, boardX, boardY):
     bottom_left = corners[-boardX][0]
     bottom_right = corners[-1][0]
 
-    src = np.array([
+    src = np.float32([
         top_left,
         top_right,
         bottom_right,
@@ -161,10 +161,10 @@ def crop_checkerboard(img_file, boardX, boardY):
     short_side = long_side * (boardY/boardX)
     print(short_side)
 
-    origin_x = 50.
-    origin_y = 50.
+    origin_x = 20.
+    origin_y = 20.
 
-    dst = np.array([
+    dst = np.float32([
         [origin_x, origin_y],
         [long_side,origin_y],
         [long_side,short_side],
@@ -180,9 +180,16 @@ def crop_checkerboard(img_file, boardX, boardY):
 
     # display resulting image
     cv.imshow('img_warped', img_warped)
+    cv.waitKey(10000)
+    # input("press enter to exit")
 
     # crop image, easy now we know corners of board
+    border_offset = 20 # offset from inner corners of checkerboard for cropping
+    cropped = img_warped[0:int(short_side + border_offset), 0:int(long_side + border_offset)]
+
+    cv.imshow('cropped', cropped)
+    cv.waitKey(10000)
 
 
 
-crop_checkerboard('test_calib_results/calibresult.png', 9, 6)
+crop_checkerboard('2.0_megapixel_cam_results/calibresult.png', boardX, boardY)
