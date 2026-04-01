@@ -2,6 +2,7 @@
 import numpy as np
 import cv2 as cv
 import glob
+import math
 
 # Function that performs camera calibration
 # Inputs:
@@ -114,3 +115,74 @@ test_img_file = 'left12.jpg'
 
 # Running function to perform calibration, print/save metrics, and undistort image
 perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
+
+
+def crop_checkerboard(img_file, boardX, boardY):
+    img = cv.imread(img_file)
+    
+    # # The shape attribute returns a tuple in the order (height, width, channels)
+    height, width, channels = img.shape
+    # print(f"Width: {width}")
+    # print(f"Height: {height}")
+
+    cv.imshow('img', img)
+
+    # use warpPerspective
+    # get 4 source corners, and 4 destination corners
+
+    # Find the chess board corners
+    ret, corners = cv.findChessboardCorners(img, (boardX, boardY), None)
+
+    top_left = corners[0][0]
+    top_right = corners[boardX - 1][0]
+    bottom_left = corners[-boardX][0]
+    bottom_right = corners[-1][0]
+
+    src = np.array([
+        top_left,
+        top_right,
+        bottom_right,
+        bottom_left       
+    ])
+    print(src)
+    print("src size:" + str(np.shape(src)))
+    
+    # destination corners are  based on longest side
+    side1 = math.dist(top_left, top_right)
+    side2 = math.dist(top_right, bottom_right)
+    side3 = math.dist(bottom_right,bottom_left)
+    side4 = math.dist(bottom_left,top_left) 
+
+    sides = [side1, side2, side3, side4]
+    long_side = max(sides)
+    print(long_side)
+
+    # assuming longest side is boardX corners and shortest is boardY
+    short_side = long_side * (boardY/boardX)
+    print(short_side)
+
+    origin_x = 50.
+    origin_y = 50.
+
+    dst = np.array([
+        [origin_x, origin_y],
+        [long_side,origin_y],
+        [long_side,short_side],
+        [origin_x,short_side]        
+    ])
+    print(dst)
+    print("dst size:" + str(np.shape(dst)))
+
+    # run warpPerspective
+    M = cv.getPerspectiveTransform(src, dst)
+    print(f'M =\n{M}')
+    img_warped = cv.warpPerspective(img, M, (width, height), flags=cv.INTER_LINEAR)
+
+    # display resulting image
+    cv.imshow('img_warped', img_warped)
+
+    # crop image, easy now we know corners of board
+
+
+
+crop_checkerboard('test_calib_results/calibresult.png', 9, 6)
