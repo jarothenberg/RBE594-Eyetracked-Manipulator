@@ -55,15 +55,11 @@ class KeyboardController(Node):
         self.arm_joint_positions = [0.0] * 4
         self.arm_joint_names = ['joint1', 'joint2', 'joint3', 'joint4']
 
-        self.linkLens = [77, 130, 124, 126]
-        self.linkOffs = [128, 24]
+        self.linkLens = [0.128, 0.124, 0.126]
+        # self.linkOffs = [0.077, 0.024] # Simulated Robot
+        self.linkOffs = [0.096326, 0.024] # Real Robot
 
-        self.mDHTable = np.array([[0, self.linkLens[0], 0, -90],
-                                  [np.degrees(np.arcsin(self.linkOffs[1] / self.linkOffs[0])) - 90, 0, self.linkLens[1], 0],
-                                  [90 - np.degrees(np.arcsin(self.linkOffs[1] / self.linkOffs[0])), 0, self.linkLens[2], 0],
-                                  [0, 0, self.linkLens[3], 0]], dtype=float)
-
-        self.arm_ee_positions = self.FK(self.arm_joint_positions)
+        self.arm_ee_positions = [0.274, 0, 0.205, 0]
 
         self.gripper_position = 0.0
         self.gripper_max = 0.019
@@ -71,7 +67,7 @@ class KeyboardController(Node):
 
         self.joint_received = False
 
-        self.max_delta = 0.02
+        self.max_delta = 0.002
         self.gripper_delta = 0.002
         self.last_command_time = time.time()
         self.command_interval = 0.02
@@ -133,176 +129,57 @@ class KeyboardController(Node):
 
     
     def IK(self, pose):
-        """
-        Returns the joint angles that will cause the end-effector to be
-        at the desired pose (x,y,z,phi) based on the inverse kinematics
-        of the arm. If the pose is not possible, this method will throw
-        an error.
-        
-        Args:
-            pose (list or np.ndarray): The pose (x,y,z,phi) of the end-effector to
-                                    calculate the corresponding joint angles for.
-        
-        Returns:
-            np.ndarray: Array of valid joint angle solutions
-        """
-        # # Define Links and givens from pose
-        xe = pose[0]
-        ye = pose[1]
-        ze = pose[2]
-        phi = pose[3]  # pitch
+
+        x = pose[0]
+        y = pose[1]
+        z = pose[2]
+        phi = pose[3]
         
         L1 = self.linkLens[0]
         L2 = self.linkLens[1]
         L3 = self.linkLens[2]
-        L4 = self.linkLens[3]
 
         O1 = self.linkOffs[0]
         O2 = self.linkOffs[1]
 
-        success = True
-        # thetas array with each row corresponding to one of the 
-        # two possible solutions (elbow up vs down)
         thetas = [0]*4
-        
-        thetas[0] = np.degrees(np.arctan2(ye, xe))
-        
-        re = np.sqrt(xe**2 + ye**2)
 
-        # Wrist position
-        rw = re - L4 * np.cos(np.radians(phi))
-        zw = ze - L1 - L4 * np.sin(np.radians(phi))
-        dw = np.sqrt(rw**2 + zw**2)
+        thetas[0] = np.arctan2(y, x)
         
-        # Two values for Beta
-        cbeta = (L2**2 + L3**2 - dw**2) / (2 * L2 * L3)
-        
-        # Check if the value is valid (should be between -1 and 1)
-        if abs(cbeta) > 1:
-            success = False
-            raise Exception("End-Effector Pose Unreachable")
-        
-        sbeta = np.sqrt(1 - cbeta**2)
-        
-        try:
-            beta = np.degrees(np.arctan2(sbeta, cbeta))
-        except:
-            success = False
-            raise Exception("End-Effector Pose Unreachable")
-        
-        # Constant value of psi
-        psi = np.degrees(np.arctan2(O1, O2))
-        
-        # 180 = psi + beta + theta3
-        # Two values for theta3
-        thetas[2] = 180 - psi - np.array(beta)
-        
-        # Two values for gamma, tau is a constant
-        gamma = np.degrees(np.arcsin(L3 * np.sin(np.radians(beta)) / dw))
-        tau = np.degrees(np.arcsin(O2 * np.sin(np.radians(psi)) / O1))
+        r = np.sqrt(x**2 + y**2) - O2
+        z_adj = z - O1
 
-        # One value for alpha
-        alpha = np.degrees(np.arctan2(zw, rw))
-        
-        # 90 = alpha + gamma + tau + theta2
-        # Two values for theta2
-        thetas[1] = 90 - tau - gamma - alpha
-        
-        # phi = -theta2 - theta3 - theta4
-        # Two values for theta4
-        thetas[3] = -thetas[1] - thetas[2] - phi
+        rw = r - L3 * np.cos(phi)
+        zw = z_adj - L3 * np.sin(phi)
 
-        # Now check if each row in thetas is a valid solution based on
-        # the physical joint limits:
-        # Joint 1: (-180 180) (None)
-        # Joint 2: (-115 115)
-        # Joint 3: (-115 85)
-        # Joint 4: (-100 120)
-        limits = np.array([[-180, 180], 
-                        [-120, 120], 
-                        [-120, 90], 
-                        [-105, 125]])
-        
-        return np.array(thetas), success
-            
+        D_origin = rw**2 + zw**2
+        cos_t2 = (D_origin - L1**2 - L2**2) / (2 * L1 * L2)
 
-    # cosine and sine in degrees (MATLAB cosd/sind equivalent)
-    def cosd(self, x):
-        return np.cos(np.deg2rad(x))
+        if abs(cos_t2) > 1:
+            print("OUT OF RANGE")
+            return None, False
 
-    def sind(self, x):
-        return np.sin(np.deg2rad(x))
+        thetas[2] = np.arccos(cos_t2) - (np.pi / 2)
+        thetas[1] = np.arctan2(rw, zw) - np.arctan2(L2 * np.cos(thetas[2]), L1 - L2 * np.sin(thetas[2]))
+        thetas[3] = -phi - thetas[2] - thetas[1]
 
-    # Given a row from the DH table, return the A matrix
-    def getDHRowMat(self, row):
-        theta, d, a, alpha = row
-
-        A = np.zeros((4, 4))
-
-        A[0, :] = [
-            self.cosd(theta),
-            -self.sind(theta) * self.cosd(alpha),
-            self.sind(theta) * self.sind(alpha),
-            a * self.cosd(theta)
+        limits = [
+            (-np.pi, np.pi),
+            (-1.5, 1.5),
+            (-1.5, 1.4),
+            (-1.7, 1.97)
         ]
-
-        A[1, :] = [
-            self.sind(theta),
-            self.cosd(theta) * self.cosd(alpha),
-            -self.cosd(theta) * self.sind(alpha),
-            a * self.sind(theta)
-        ]
-
-        A[2, :] = [
-            0,
-            self.sind(alpha),
-            self.cosd(alpha),
-            d
-        ]
-
-        A[3, :] = [0, 0, 0, 1]
-
-        return A
-
-    # Return all intermediate A matrices
-    def getIntMat(self, jointAngles):
-        AMat = np.zeros((4, 4, 4))
-
-        dhTable = self.mDHTable.copy()
-        dhTable[:, 0] = dhTable[:, 0] + jointAngles
 
         for i in range(4):
-            AMat[:, :, i] = self.getDHRowMat(dhTable[i, :])
-
-        return AMat
-
-    # Return accumulated transformation matrices T0_i
-    def getAccMat(self, jointAngles):
-        TMat = np.zeros((4, 4, 4))
-
-        AMat = self.getIntMat(jointAngles)
-
-        TMat[:, :, 0] = AMat[:, :, 0]
-
-        for i in range(1, 4):
-            TMat[:, :, i] = TMat[:, :, i - 1] @ AMat[:, :, i]
-
-        return TMat
-
-    # Return final forward kinematics T0_4
-    def FK(self, jointAngles):
-        AMat = self.getIntMat(jointAngles)
-
-        T = AMat[:, :, 0]
-
-        for i in range(1, 4):
-            T = T @ AMat[:, :, i]
-
-        d = T[0:3, 3]      # Extract translation vector (no transpose needed)
-
-        eePos = np.concatenate((d, [-(jointAngles[1] + jointAngles[2] + jointAngles[3])]))
-
-        return eePos
+            thetas[i] = np.arctan2(np.sin(thetas[i]), np.cos(thetas[i]))
+            
+            low, high = limits[i]
+            if not (low <= thetas[i] <= high):
+                print(f"LIMIT VIOLATION: Joint {i+1} at {np.degrees(thetas[i]):.2f}° "
+                    f"is outside [{np.degrees(low):.0f}°, {np.degrees(high):.0f}°]")
+                return None, False
+            
+        return thetas, True
 
     def run(self):
         while not self.joint_received and rclpy.ok() and self.running:
@@ -368,7 +245,6 @@ class KeyboardController(Node):
 def main():
     rclpy.init()
     node = KeyboardController()
-
     thread = threading.Thread(target=node.run)
     thread.start()
 
