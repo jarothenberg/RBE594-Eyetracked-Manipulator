@@ -113,8 +113,8 @@ calib_results_dir = '2.0_megapixel_cam_results/'
 # Name of test image file to undistort
 test_img_file = '2026-04-01-184057.jpg'
 
-# Running function to perform calibration, print/save metrics, and undistort image
-perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
+# # Running function to perform calibration, print/save metrics, and undistort image
+# perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
 
 
 def crop_checkerboard(img_file, boardX, boardY):
@@ -180,15 +180,20 @@ def crop_checkerboard(img_file, boardX, boardY):
 
     # display resulting image
     cv.imshow('img_warped', img_warped)
-    cv.waitKey(10000)
+    cv.waitKey(0)
     # input("press enter to exit")
 
     # crop image, easy now we know corners of board
     border_offset = 20 # offset from inner corners of checkerboard for cropping
     cropped = img_warped[0:int(short_side + border_offset), 0:int(long_side + border_offset)]
 
-    cv.imshow('cropped', cropped)
-    cv.waitKey(10000)
+    # do a bunch of stuff to fullscreen the cropped image
+    cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
+    cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+    cv.imshow("Fullscreen Window", cropped)
+
+    cv.waitKey(0)
+    cv.destroyAllWindows()
 
 
 
