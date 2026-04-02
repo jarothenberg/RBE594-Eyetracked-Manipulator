@@ -32,6 +32,8 @@ from trajectory_msgs.msg import JointTrajectory
 from trajectory_msgs.msg import JointTrajectoryPoint
 import numpy as np
 
+from geometry_msgs.msg import Point
+
 class KeyboardController(Node):
 
     def __init__(self):
@@ -52,12 +54,18 @@ class KeyboardController(Node):
             JointState, '/joint_states', self.joint_state_callback, 10
         )
 
+        self.eyetracking_subscription = self.create_subscription(
+            Point, '/eyetracking_pose', self.eyetracking_state_callback, 10
+        )
+
         self.arm_joint_positions = [0.0] * 4
         self.arm_joint_names = ['joint1', 'joint2', 'joint3', 'joint4']
 
         self.linkLens = [0.128, 0.124, 0.126]
         self.linkOffs = [0.077, 0.024] # Simulated Robot
         # self.linkOffs = [0.096326, 0.024] # Real Robot
+
+        self.useKeyboard = False
 
         self.arm_ee_positions = [0.274, 0, 0.205, 0]
 
@@ -76,6 +84,30 @@ class KeyboardController(Node):
 
         self.get_logger().info('Waiting for /joint_states...')
         self.rate = self.create_rate(10)
+
+    def eyetracking_state_callback(self, msg):
+        xCoord = msg.x
+        yCoord = msg.y
+
+        TL = [69, 167]
+        BR = [1473, 1566]
+        width = BR[1] - TL[1]
+        height = BR[0] - TL[0]
+        squareSize = 25 #mm
+        numSquareX = 10
+        numSquareY = 10
+        totalYmm = squareSize * numSquareY
+        totalYmm_pixel = totalYmm / height
+        totalXmm = squareSize * numSquareX
+        totalXmm_pixel = totalXmm / width
+        if TL[0] <= xCoord <= BR[0] and TL[1] <= yCoord <= BR[1]:
+            yMM = (xCoord - TL[0]) * totalXmm_pixel
+            xMM = (yCoord - TL[1]) * totalYmm_pixel - totalYmm_pixel/2
+
+            self.arm_ee_positions([xMM/1000, yMM/1000, 0.205, 0.0])
+            self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
+            if success:
+                self.send_arm_command()
 
     def joint_state_callback(self, msg):
         if set(self.arm_joint_names).issubset(set(msg.name)):
@@ -232,7 +264,6 @@ class KeyboardController(Node):
                         self.gripper_position = new_pos
                         self.send_gripper_command()
 
-                    #TODO self.arm_joint_positions = IK(self.arm_ee_positions)
                     self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
                     if success:
                         self.send_arm_command()
