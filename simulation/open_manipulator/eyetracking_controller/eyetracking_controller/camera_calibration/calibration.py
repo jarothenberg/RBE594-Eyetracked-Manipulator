@@ -11,6 +11,8 @@ import math
 # calib_imgs_dir: string being the directory of where the calibration images are
 # calib_results_dir: string being the directory of where the calibration results should be stored
 # test_img_file: string being the name of the image file to undistort
+# Outputs:
+# dst: image matrix of corrected test_image
 def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file):
     # termination criteria
     criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
@@ -101,37 +103,32 @@ def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_
     print("Re-Projection Error", mean_error)
     np.save(calib_results_dir+'reproj_err', mean_error)
 
-## Values
-# interior Corners in x direction
-boardX = 10
-# interior Corners in y direction
-boardY = 4
-# Location of calibration images
-calib_imgs_dir = '2.0_megapixel_cam_data/'
-# Location of folder to save npy arrays
-calib_results_dir = '2.0_megapixel_cam_results/'
-# Name of test image file to undistort
-test_img_file = '2026-04-01-184057.jpg'
-
-# # Running function to perform calibration, print/save metrics, and undistort image
-# perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
+    return dst
 
 
-def crop_checkerboard(img_file, boardX, boardY):
-    img = cv.imread(img_file)
+def crop_checkerboard(img, boardX, boardY):
+    # returns cropped image
+    # img - a corrected camera image (using calibration) (already imread'd)
+    # boardX, boardY - # of intersections between squares in X and Y directions.
+
+    # img = cv.imread(img_file)
     
     # # The shape attribute returns a tuple in the order (height, width, channels)
     height, width, channels = img.shape
     # print(f"Width: {width}")
     # print(f"Height: {height}")
 
-    cv.imshow('img', img)
+    # cv.imshow('img', img)
+    # cv.waitKey(0)
 
     # use warpPerspective
     # get 4 source corners, and 4 destination corners
 
     # Find the chess board corners
     ret, corners = cv.findChessboardCorners(img, (boardX, boardY), None)
+
+    if ret != True:
+        return img #in case no corners are found
 
     top_left = corners[0][0]
     top_right = corners[boardX - 1][0]
@@ -161,14 +158,13 @@ def crop_checkerboard(img_file, boardX, boardY):
     short_side = long_side * (boardY/boardX)
     print(short_side)
 
-    origin_x = 20.
-    origin_y = 20.
+    origin_xy = 15.
 
     dst = np.float32([
-        [origin_x, origin_y],
-        [long_side,origin_y],
+        [origin_xy, origin_xy],
+        [long_side,origin_xy],
         [long_side,short_side],
-        [origin_x,short_side]        
+        [origin_xy,short_side]        
     ])
     print(dst)
     print("dst size:" + str(np.shape(dst)))
@@ -184,17 +180,106 @@ def crop_checkerboard(img_file, boardX, boardY):
     # input("press enter to exit")
 
     # crop image, easy now we know corners of board
-    border_offset = 20 # offset from inner corners of checkerboard for cropping
-    cropped = img_warped[0:int(short_side + border_offset), 0:int(long_side + border_offset)]
+    cropped = img_warped[0:int(short_side + origin_xy), 0:int(long_side + origin_xy)]
 
-    # do a bunch of stuff to fullscreen the cropped image
-    cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
-    cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
-    cv.imshow("Fullscreen Window", cropped)
+    # # do a bunch of stuff to fullscreen the cropped image
+    # cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
+    # cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+    # cv.imshow("Fullscreen Window", cropped)
 
-    cv.waitKey(0)
-    cv.destroyAllWindows()
+    # cv.waitKey(0)
+    # cv.destroyAllWindows()
+
+    return cropped
 
 
 
-crop_checkerboard('2.0_megapixel_cam_results/calibresult.png', boardX, boardY)
+## Values
+# interior Corners in x direction
+boardX = 10
+# interior Corners in y direction
+boardY = 4
+# Location of calibration images
+calib_imgs_dir = '2.0_megapixel_cam_data/'
+# Location of folder to save npy arrays
+calib_results_dir = '2.0_megapixel_cam_results/'
+# Name of test image file to undistort
+test_img_file = '2026-04-01-184057.jpg'
+
+# filename of static checkerboard, to be overlaid on camera image
+static_img_file = 'static-chessboard-3x10.jpg'
+static_img = cv.imread(static_img_file)
+# cv.imshow('static chessboard', static_img)
+# cv.waitKey(10)
+
+# Running function to perform calibration, print/save metrics, and undistort image
+camera = perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
+
+cropped_camera = crop_checkerboard(camera, boardX, boardY)
+# cropped_static = crop_checkerboard(static_img, boardX, boardY)
+
+# Extract height and width from the reference image
+# shape[:2] gives (height, width)
+height, width = cropped_camera.shape[:2]
+
+# Resize target image to match reference image
+# Note: dsize is (width, height)
+cropped_static = cv.resize(static_img, (width, height), interpolation=cv.INTER_LINEAR)
+
+
+alpha = 0.5
+ 
+# alpha = float(input(''' Simple Linear Blender
+# -----------------------
+# * Enter alpha [0.0-1.0]: '''))
+
+
+if cropped_camera is None:
+    print("Error loading src1")
+    exit(-1)
+elif cropped_static is None:
+    print("Error loading src2")
+    exit(-1)
+
+# TODO: make images same size
+
+# [blend_images]
+beta = (1.0 - alpha)
+final = cv.addWeighted(cropped_camera, alpha, cropped_static, beta, 0.0)
+# [blend_images]
+# [display]
+cv.imshow('dst', final)
+cv.waitKey(0)
+# [display]
+cv.destroyAllWindows()
+
+
+# if 0 <= alpha <= 1:
+#     alpha = input_alpha
+
+
+if cropped_camera is None:
+    print("Error loading src1")
+    exit(-1)
+
+
+if cropped_camera is None:
+    print("Error loading src1")
+    exit(-1)
+elif cropped_static is None:
+    print("Error loading src2")
+    exit(-1)
+
+# [blend_images]
+beta = (1.0 - alpha)
+final = cv.addWeighted(cropped_camera, alpha, cropped_static, beta, 0.0)
+# [blend_images]
+
+# do a bunch of stuff to fullscreen the image
+cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
+cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+cv.imshow("Fullscreen Window", final)
+
+cv.waitKey(0)
+cv.destroyAllWindows()
+
