@@ -51,7 +51,7 @@ def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_
             # Draw and display the corners
             cv.drawChessboardCorners(img, (boardX,boardY), corners2, ret)
             cv.imshow('img', img)
-            cv.waitKey(500)
+            cv.waitKey(50)
 
     # Cleans up
     cv.destroyAllWindows()
@@ -64,7 +64,7 @@ def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_
     np.save(calib_results_dir+'calib_mat.npy', mtx)
 
     # Loads image to undistort
-    test_img = cv.imread(calib_imgs_dir + test_img_file)
+    test_img = cv.imread(test_img_file)
     # Gets image size
     h,  w = test_img.shape[:2]
     # Refines camera matrix and finds roi
@@ -106,6 +106,28 @@ def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_
     return dst
 
 
+def flatten_image(img, mtx, dist):
+    # Inputs:
+    # img - img matrix from camera, to be flattened
+    # mtx - calibration matrix, saved from initial calibration
+    # dist - dist matrix, saved from initial calibration
+    # Outputs:
+    # flat - img matrix from camera, without distortion
+
+    # Gets image size
+    h,  w = img.shape[:2]
+    # Refines camera matrix and finds roi
+    newcameramtx, roi = cv.getOptimalNewCameraMatrix(mtx, dist, (w,h), 1, (w,h))
+    # Undistorts image
+    dst = cv.undistort(img, mtx, dist, None, newcameramtx)
+    # crop the image
+    x, y, w, h = roi
+    flat = dst[y:y+h, x:x+w]
+
+    return flat
+
+
+
 def crop_checkerboard(img, boardX, boardY):
     # returns cropped image
     # img - a corrected camera image (using calibration) (already imread'd)
@@ -128,7 +150,8 @@ def crop_checkerboard(img, boardX, boardY):
     ret, corners = cv.findChessboardCorners(img, (boardX, boardY), None)
 
     if ret != True:
-        return img #in case no corners are found
+        # img_warped = cv.warpPerspective(img, last_perspective_transform, (width, height), flags=cv.INTER_LINEAR)
+        return img_warped #in case no corners are found
 
     top_left = corners[0][0]
     top_right = corners[boardX - 1][0]
@@ -158,7 +181,7 @@ def crop_checkerboard(img, boardX, boardY):
     short_side = long_side * (boardY/boardX)
     print(short_side)
 
-    origin_xy = 15.
+    origin_xy = 28.
 
     dst = np.float32([
         [origin_xy, origin_xy],
@@ -171,115 +194,90 @@ def crop_checkerboard(img, boardX, boardY):
 
     # run warpPerspective
     M = cv.getPerspectiveTransform(src, dst)
+    last_perspective_transform = M
     print(f'M =\n{M}')
     img_warped = cv.warpPerspective(img, M, (width, height), flags=cv.INTER_LINEAR)
 
-    # display resulting image
-    cv.imshow('img_warped', img_warped)
-    cv.waitKey(0)
-    # input("press enter to exit")
+    # # display resulting image
+    # cv.imshow('img_warped', img_warped)
+    # cv.waitKey(0)
+    # # input("press enter to exit")
 
     # crop image, easy now we know corners of board
     cropped = img_warped[0:int(short_side + origin_xy), 0:int(long_side + origin_xy)]
 
-    # # do a bunch of stuff to fullscreen the cropped image
-    # cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
-    # cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
-    # cv.imshow("Fullscreen Window", cropped)
-
-    # cv.waitKey(0)
-    # cv.destroyAllWindows()
-
     return cropped
 
 
+def main():
+    ## Values
+    # interior Corners in x direction
+    boardX = 10
+    # interior Corners in y direction
+    boardY = 4
+    # Location of calibration images
+    mother_dir = '2MPx_wide'
+    calib_imgs_dir = mother_dir + '_data/'
+    # Location of folder to save npy arrays
+    calib_results_dir = mother_dir + '_results/'
+    # Name of test image file to undistort
+    test_img_file = 'MOUNTED_IMAGE.jpg'
+    test_img = cv.imread(test_img_file)
 
-## Values
-# interior Corners in x direction
-boardX = 10
-# interior Corners in y direction
-boardY = 4
-# Location of calibration images
-calib_imgs_dir = '2.0_megapixel_cam_data/'
-# Location of folder to save npy arrays
-calib_results_dir = '2.0_megapixel_cam_results/'
-# Name of test image file to undistort
-test_img_file = '2026-04-01-184057.jpg'
-
-# filename of static checkerboard, to be overlaid on camera image
-static_img_file = 'static-chessboard-3x10.jpg'
-static_img = cv.imread(static_img_file)
-# cv.imshow('static chessboard', static_img)
-# cv.waitKey(10)
-
-# Running function to perform calibration, print/save metrics, and undistort image
-camera = perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
-
-cropped_camera = crop_checkerboard(camera, boardX, boardY)
-# cropped_static = crop_checkerboard(static_img, boardX, boardY)
-
-# Extract height and width from the reference image
-# shape[:2] gives (height, width)
-height, width = cropped_camera.shape[:2]
-
-# Resize target image to match reference image
-# Note: dsize is (width, height)
-cropped_static = cv.resize(static_img, (width, height), interpolation=cv.INTER_LINEAR)
+    # filename of static checkerboard, to be overlaid on camera image
+    static_img_file = 'static-chessboard-3x10.jpg'
+    static_img = cv.imread(static_img_file)
 
 
-alpha = 0.5
- 
-# alpha = float(input(''' Simple Linear Blender
-# -----------------------
-# * Enter alpha [0.0-1.0]: '''))
+    perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
+
+    # Running function to perform calibration, print/save metrics, and undistort image
+    calibmtx = np.load(calib_results_dir + 'calib_mat.npy')
+    dist = np.load(calib_results_dir + 'dist_coeffs.npy')
+    
+    camera = flatten_image(test_img, calibmtx, dist)
 
 
-if cropped_camera is None:
-    print("Error loading src1")
-    exit(-1)
-elif cropped_static is None:
-    print("Error loading src2")
-    exit(-1)
+    # try:
+    #     calibmtx = np.load(calib_results_dir + 'calib_mat_refined.npy')
+    #     camera = flatten_image(test_img, calibmtx)
+    # except:
+    #     print("ERROR: calibration results not found. Recalibrating.")
+    #     camera = perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
 
-# TODO: make images same size
+    cropped_camera = crop_checkerboard(camera, boardX, boardY)
 
-# [blend_images]
-beta = (1.0 - alpha)
-final = cv.addWeighted(cropped_camera, alpha, cropped_static, beta, 0.0)
-# [blend_images]
-# [display]
-cv.imshow('dst', final)
-cv.waitKey(0)
-# [display]
-cv.destroyAllWindows()
+    # Extract height and width from the reference image
+    # shape[:2] gives (height, width)
+    height, width = cropped_camera.shape[:2]
+
+    # Resize target image to match reference image
+    # Note: dsize is (width, height)
+    cropped_static = cv.resize(static_img, (width, height), interpolation=cv.INTER_LINEAR)
 
 
-# if 0 <= alpha <= 1:
-#     alpha = input_alpha
+    alpha = 0.5
 
+    if cropped_camera is None:
+        print("Error loading src1")
+        exit(-1)
+    elif cropped_static is None:
+        print("Error loading src2")
+        exit(-1)
 
-if cropped_camera is None:
-    print("Error loading src1")
-    exit(-1)
+    # [blend_images]
+    beta = (1.0 - alpha)
+    final = cv.addWeighted(cropped_camera, alpha, cropped_static, beta, 0.0)
+    # [blend_images]
 
+    # do a bunch of stuff to fullscreen the image
+    cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
+    cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+    cv.imshow("Fullscreen Window", final)
 
-if cropped_camera is None:
-    print("Error loading src1")
-    exit(-1)
-elif cropped_static is None:
-    print("Error loading src2")
-    exit(-1)
+    cv.waitKey(0)
+    cv.destroyAllWindows()
 
-# [blend_images]
-beta = (1.0 - alpha)
-final = cv.addWeighted(cropped_camera, alpha, cropped_static, beta, 0.0)
-# [blend_images]
-
-# do a bunch of stuff to fullscreen the image
-cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
-cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
-cv.imshow("Fullscreen Window", final)
-
-cv.waitKey(0)
-cv.destroyAllWindows()
+if __name__ == "__main__":
+    main()
 
