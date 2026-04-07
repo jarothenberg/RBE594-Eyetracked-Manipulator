@@ -8,7 +8,6 @@ from camera_calibration.calibration import *
 
 ## INIT - things to run once at start
 
-
 # Values
 # interior Corners in x direction
 boardX = 10
@@ -19,6 +18,10 @@ mother_dir = 'camera_calibration/2MPx_wide'
 calib_imgs_dir = mother_dir + '_data/'
 # Location of folder to save npy arrays
 calib_results_dir = mother_dir + '_results/'
+
+origin_xy = 28.0
+
+
 
 # calibrate camera image? maybe
 # test it?
@@ -38,13 +41,20 @@ if vc.isOpened(): # try to get the first frame
 else:
     rval = False
 
+# M, short_side, long_side = find_crop_vars(frame, boardX, boardY, origin_xy)
+M = short_side = long_side = None
+
 while rval:
 
     # perform all the functions on frame :D
     calibmtx = np.load(calib_results_dir + 'calib_mat.npy')
     dist = np.load(calib_results_dir + 'dist_coeffs.npy')
     camera = flatten_image(frame, calibmtx, dist)
-    cropped_camera = crop_checkerboard(camera, boardX, boardY)
+
+    if short_side == None:
+        M, short_side, long_side = find_crop_vars(camera, boardX, boardY, origin_xy)
+
+    cropped_camera = crop_checkerboard(camera, origin_xy, short_side, long_side, M)
 
     # do a bunch of stuff to fullscreen the image
     cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)

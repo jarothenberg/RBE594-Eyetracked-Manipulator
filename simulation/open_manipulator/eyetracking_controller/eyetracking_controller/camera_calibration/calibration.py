@@ -127,31 +127,16 @@ def flatten_image(img, mtx, dist):
     return flat
 
 
-
-def crop_checkerboard(img, boardX, boardY):
+def find_crop_vars(img, boardX, boardY, origin_xy):
     # returns cropped image
     # img - a corrected camera image (using calibration) (already imread'd)
     # boardX, boardY - # of intersections between squares in X and Y directions.
-
-    # img = cv.imread(img_file)
-    
-    # # The shape attribute returns a tuple in the order (height, width, channels)
-    height, width, channels = img.shape
-    # print(f"Width: {width}")
-    # print(f"Height: {height}")
-
-    # cv.imshow('img', img)
-    # cv.waitKey(0)
 
     # use warpPerspective
     # get 4 source corners, and 4 destination corners
 
     # Find the chess board corners
     ret, corners = cv.findChessboardCorners(img, (boardX, boardY), None)
-
-    if ret != True:
-        # img_warped = cv.warpPerspective(img, last_perspective_transform, (width, height), flags=cv.INTER_LINEAR)
-        return img_warped #in case no corners are found
 
     top_left = corners[0][0]
     top_right = corners[boardX - 1][0]
@@ -164,8 +149,8 @@ def crop_checkerboard(img, boardX, boardY):
         bottom_right,
         bottom_left       
     ])
-    print(src)
-    print("src size:" + str(np.shape(src)))
+    # print(src)
+    # print("src size:" + str(np.shape(src)))
     
     # destination corners are  based on longest side
     side1 = math.dist(top_left, top_right)
@@ -175,13 +160,13 @@ def crop_checkerboard(img, boardX, boardY):
 
     sides = [side1, side2, side3, side4]
     long_side = max(sides)
-    print(long_side)
+    # print(long_side)
 
     # assuming longest side is boardX corners and shortest is boardY
     short_side = long_side * (boardY/boardX)
-    print(short_side)
+    # print(short_side)
 
-    origin_xy = 28.
+    # origin_xy = 28.
 
     dst = np.float32([
         [origin_xy, origin_xy],
@@ -189,13 +174,17 @@ def crop_checkerboard(img, boardX, boardY):
         [long_side,short_side],
         [origin_xy,short_side]        
     ])
-    print(dst)
-    print("dst size:" + str(np.shape(dst)))
+    # print(dst)
+    # print("dst size:" + str(np.shape(dst)))
 
     # run warpPerspective
     M = cv.getPerspectiveTransform(src, dst)
-    last_perspective_transform = M
-    print(f'M =\n{M}')
+    # print(f'M =\n{M}')
+
+    return M, short_side, long_side
+
+def crop_checkerboard(img, origin_xy, short_side, long_side, M):
+    height, width, channels = img.shape
     img_warped = cv.warpPerspective(img, M, (width, height), flags=cv.INTER_LINEAR)
 
     # # display resulting image
@@ -245,7 +234,9 @@ def main():
     #     print("ERROR: calibration results not found. Recalibrating.")
     #     camera = perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file)
 
-    cropped_camera = crop_checkerboard(camera, boardX, boardY)
+    origin_xy = 28.0
+    M, short_side, long_side = find_crop_vars(camera, boardX, boardY, origin_xy)
+    cropped_camera = crop_checkerboard(camera, origin_xy, short_side, long_side, M)
 
     # Extract height and width from the reference image
     # shape[:2] gives (height, width)
@@ -273,7 +264,7 @@ def main():
     # do a bunch of stuff to fullscreen the image
     cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
     cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
-    cv.imshow("Fullscreen Window", final)
+    cv.imshow("Fullscreen Window", cropped_camera)
 
     cv.waitKey(0)
     cv.destroyAllWindows()
