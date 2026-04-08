@@ -12,12 +12,12 @@ def main():
                 filter='none',
                 ema_alpha=0.25,
                 camera=4,
-                calibration='9p',
+                calibration='dense',
                 grid_rows=5,
                 grid_cols=5,
                 grid_margin=0.1,
                 background=None, 
-                confidence=0.5, 
+                confidence=0.9, 
                 model='ridge', 
                 model_file=None
             )

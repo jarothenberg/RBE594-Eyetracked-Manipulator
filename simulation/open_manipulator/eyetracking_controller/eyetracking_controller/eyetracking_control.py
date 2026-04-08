@@ -65,8 +65,6 @@ class KeyboardController(Node):
         self.linkOffs = [0.077, 0.024] # Simulated Robot
         # self.linkOffs = [0.096326, 0.024] # Real Robot
 
-        self.useKeyboard = False
-
         self.arm_ee_positions = [0.274, 0, 0.205, 0]
 
         self.gripper_position = 0.0
@@ -74,6 +72,7 @@ class KeyboardController(Node):
         self.gripper_min = -0.01
 
         self.joint_received = False
+        self.eyetracking_pose_recieved = False
 
         self.max_delta = 0.002
         self.gripper_delta = 0.002
@@ -86,13 +85,13 @@ class KeyboardController(Node):
         self.rate = self.create_rate(10)
 
     def eyetracking_state_callback(self, msg):
+        self.eyetracking_pose_recieved = True
         xCoord = msg.x
         yCoord = msg.y
-
         TL = [69, 167]
         BR = [1473, 1566]
-        width = BR[1] - TL[1]
-        height = BR[0] - TL[0]
+        width = BR[0] - TL[0]
+        height = BR[1] - TL[1]
         squareSize = 25 #mm
         numSquareX = 10
         numSquareY = 10
@@ -101,12 +100,15 @@ class KeyboardController(Node):
         totalXmm = squareSize * numSquareX
         totalXmm_pixel = totalXmm / width
         if TL[0] <= xCoord <= BR[0] and TL[1] <= yCoord <= BR[1]:
-            yMM = (xCoord - TL[0]) * totalXmm_pixel
-            xMM = (yCoord - TL[1]) * totalYmm_pixel - totalYmm_pixel/2
+            x_meter = ((xCoord - TL[0]) * totalXmm_pixel) / 1000
+            y_meter = -((yCoord - TL[1] - height/2) * totalYmm_pixel)/1000
 
-            self.arm_ee_positions([xMM/1000, yMM/1000, 0.205, 0.0])
+            self.arm_ee_positions = [x_meter, y_meter, 0.205, 0.0]
             self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
             if success:
+                self.get_logger().info(
+                    f'Received coordinates! X: {x_meter}, Y: {y_meter}'
+                )
                 self.send_arm_command()
 
     def joint_state_callback(self, msg):
@@ -120,10 +122,10 @@ class KeyboardController(Node):
             self.gripper_position = msg.position[index]
 
         self.joint_received = True
-        self.get_logger().info(
-            f'Received joint states: {self.arm_joint_positions}, '
-            f'Gripper: {self.gripper_position}'
-        )
+        # self.get_logger().info(
+        #     f'Received joint states: {self.arm_joint_positions}, '
+        #     f'Gripper: {self.gripper_position}'
+        # )
 
     def get_key(self, timeout=0.01):
         fd = sys.stdin.fileno()
@@ -145,7 +147,7 @@ class KeyboardController(Node):
         arm_point.time_from_start.sec = 0
         arm_msg.points.append(arm_point)
         self.arm_publisher.publish(arm_msg)
-        self.get_logger().info(f'Arm command sent: {self.arm_joint_positions}')
+        # self.get_logger().info(f'Arm command sent: {self.arm_joint_positions}')
         #TODO check if connected to hardware robot and send if connected
 
     def send_gripper_command(self):
@@ -153,7 +155,7 @@ class KeyboardController(Node):
         goal_msg.command.position = self.gripper_position
         goal_msg.command.max_effort = 10.0
 
-        self.get_logger().info(f'Sending gripper command: {goal_msg.command.position}')
+        # self.get_logger().info(f'Sending gripper command: {goal_msg.command.position}')
         self.gripper_client.wait_for_server()
         send_goal_future = self.gripper_client.send_goal_async(goal_msg)
         rclpy.spin_until_future_complete(self, send_goal_future)
@@ -189,7 +191,7 @@ class KeyboardController(Node):
 
         if abs(cos_t2) > 1:
             print("OUT OF RANGE")
-            return None, False
+            return [None]*4, False
 
         thetas[2] = np.arccos(cos_t2) - (np.pi / 2)
         thetas[1] = np.arctan2(rw, zw) - np.arctan2(L2 * np.cos(thetas[2]), L1 - L2 * np.sin(thetas[2]))
@@ -209,20 +211,19 @@ class KeyboardController(Node):
             if not (low <= thetas[i] <= high):
                 print(f"LIMIT VIOLATION: Joint {i+1} at {np.degrees(thetas[i]):.2f}° "
                     f"is outside [{np.degrees(low):.0f}°, {np.degrees(high):.0f}°]")
-                return None, False
+                return [None]*4, False
             
         return thetas, True
 
     def run(self):
-        while not self.joint_received and rclpy.ok() and self.running:
-            self.get_logger().info('Waiting for initial joint states...')
-            rclpy.spin_once(self, timeout_sec=1.0)
+        while (not self.joint_received or not self.eyetracking_pose_recieved) and rclpy.ok() and self.running:
+            self.get_logger().info('Waiting for initial joint states and eyetracking pose...')
+            # rclpy.spin_once(self, timeout_sec=1.0)
 
-        self.get_logger().info('Ready to receive keyboard input!')
+        self.get_logger().info('Ready to receive keyboard and eyetracking input!')
         self.get_logger().info(
             'Use 1/q, 2/w, 3/e, 4/r for joints 1-4, o/p for gripper. Press ESC to exit.'
         )
-
         try:
             while rclpy.ok() and self.running:
                 key = self.get_key()
@@ -266,6 +267,9 @@ class KeyboardController(Node):
 
                     self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
                     if success:
+                        self.get_logger().info(
+                            f'Received coordinates! X: {self.arm_ee_positions[0]}, Y: {self.arm_ee_positions[1]}'
+                        )
                         self.send_arm_command()
                         self.last_command_time = current_time
 
@@ -280,17 +284,16 @@ def main():
     thread.start()
 
     try:
+        rclpy.spin(node)
         while thread.is_alive():
             time.sleep(0.1)
     except KeyboardInterrupt:
-        print('\nCtrl+C detected. Shutting down...')
-        node.running = False
-        thread.join()
+        pass
 
+    node.running = False
+    thread.join()
     node.destroy_node()
     rclpy.shutdown()
-
-
 
 
 if __name__ == '__main__':
