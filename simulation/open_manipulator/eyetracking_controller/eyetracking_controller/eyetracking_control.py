@@ -65,7 +65,8 @@ class KeyboardController(Node):
         self.linkOffs = [0.077, 0.024] # Simulated Robot
         # self.linkOffs = [0.096326, 0.024] # Real Robot
 
-        self.arm_ee_positions = [0.274, 0, 0.205, 0]
+        # self.arm_ee_positions = [0.274, 0, 0.205, 0]
+        self.arm_ee_positions = [0.16, 0, 0.145, 0] # Starting position from bringup
 
         self.gripper_position = 0.0
         self.gripper_max = 0.019
@@ -157,8 +158,7 @@ class KeyboardController(Node):
 
         # self.get_logger().info(f'Sending gripper command: {goal_msg.command.position}')
         self.gripper_client.wait_for_server()
-        send_goal_future = self.gripper_client.send_goal_async(goal_msg)
-        rclpy.spin_until_future_complete(self, send_goal_future)
+        self.gripper_client.send_goal_async(goal_msg)
         #TODO check if connected to hardware robot and send if connected
 
     
@@ -216,7 +216,7 @@ class KeyboardController(Node):
         return thetas, True
 
     def run(self):
-        while (not self.joint_received or not self.eyetracking_pose_recieved) and rclpy.ok() and self.running:
+        while (not self.joint_received) and rclpy.ok() and self.running:
             self.get_logger().info('Waiting for initial joint states and eyetracking pose...')
             # rclpy.spin_once(self, timeout_sec=1.0)
 
