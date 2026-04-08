@@ -6,6 +6,9 @@ import math
 
 from camera_calibration.calibration import *
 
+
+'''this file can run on its own, and is designed to flatten and display the checkerboard workspace of the robot.'''
+
 ## INIT - things to run once at start
 
 # Values
@@ -19,15 +22,10 @@ calib_imgs_dir = mother_dir + '_data/'
 # Location of folder to save npy arrays
 calib_results_dir = mother_dir + '_results/'
 
+# origin of chessboard coord frame, in px - needs tuning if camera changes
 origin_xy = 28.0
 
-
-
-# calibrate camera image? maybe
-# test it?
-
-
-## LOOP - ros node go spin
+# TODO: run calibration? test calibration?
 
 cv.namedWindow("preview")
 vc = cv.VideoCapture(2)
@@ -44,6 +42,7 @@ else:
 # M, short_side, long_side = find_crop_vars(frame, boardX, boardY, origin_xy)
 M = short_side = long_side = None
 
+## LOOP - ros node go spin
 while rval:
 
     # perform all the functions on frame :D
@@ -51,7 +50,7 @@ while rval:
     dist = np.load(calib_results_dir + 'dist_coeffs.npy')
     camera = flatten_image(frame, calibmtx, dist)
 
-    if short_side == None:
+    if short_side == None or long_side == None:
         M, short_side, long_side = find_crop_vars(camera, boardX, boardY, origin_xy)
 
     cropped_camera = crop_checkerboard(camera, origin_xy, short_side, long_side, M)
@@ -62,6 +61,7 @@ while rval:
 
     cv.imshow("Fullscreen Window", cropped_camera)
     rval, frame = vc.read()
+
     key = cv.waitKey(1)
     if key == 27: # exit on ESC
         break
