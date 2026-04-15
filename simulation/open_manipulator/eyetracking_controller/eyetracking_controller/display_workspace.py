@@ -25,9 +25,14 @@ calib_results_dir = mother_dir + '_results/'
 # origin of chessboard coord frame, in px - needs tuning if camera changes
 origin_xy = 28.0
 
+ROSE = (255, 29, 141) 
+
+lower = np.array([0, 0, 0])
+upper = np.array([170, 200, 170])
+
 # TODO: run calibration? test calibration?
 
-cv.namedWindow("preview")
+# cv.namedWindow("preview")
 vc = cv.VideoCapture(2)
 
 # Set resolution (Property 3 is Width, 4 is Height)
@@ -55,11 +60,17 @@ while rval:
 
     cropped_camera = crop_checkerboard(camera, origin_xy, short_side, long_side, M)
 
-    # do a bunch of stuff to fullscreen the image
-    cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
-    cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+    blur = cv.blur(cropped_camera, (4, 4))
+    mask = cv.inRange(blur, lower, upper)
 
-    cv.imshow("Fullscreen Window", cropped_camera)
+    # # do a bunch of stuff to fullscreen the image
+    # cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
+    # cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+    # cv.imshow("Fullscreen Window", mask)
+
+    cv.imshow("src", cropped_camera)
+    cv.imshow("mask", mask)
+
     rval, frame = vc.read()
 
     key = cv.waitKey(1)
