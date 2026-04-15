@@ -63,6 +63,23 @@ while rval:
     blur = cv.blur(cropped_camera, (4, 4))
     mask = cv.inRange(blur, lower, upper)
 
+    params = cv.SimpleBlobDetector_Params()
+
+    params.filterByArea = True
+    params.minArea = 50
+    params.filterByCircularity = False
+    params.filterByConvexity = False
+    params.filterByInertia = False
+
+    detector = cv.SimpleBlobDetector_create(params)
+
+    # try inverting binary image?
+    ksam = cv.bitwise_not(mask)
+
+    keypoints = detector.detect(ksam)
+    img_with_keypoints = cv.drawKeypoints(mask, keypoints, np.array([]), (0, 0, 255), cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+
     # # do a bunch of stuff to fullscreen the image
     # cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
     # cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
@@ -70,6 +87,7 @@ while rval:
 
     cv.imshow("src", cropped_camera)
     cv.imshow("mask", mask)
+    cv.imshow("blob detection", img_with_keypoints)
 
     rval, frame = vc.read()
 
