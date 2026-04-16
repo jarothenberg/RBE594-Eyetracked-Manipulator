@@ -4,16 +4,18 @@ import cv2 as cv
 import glob
 import math
 
-# Function that performs camera calibration
-# Inputs:
-# boardX: integer being the number of corners in x
-# boardY: integer being the number of corners in y
-# calib_imgs_dir: string being the directory of where the calibration images are
-# calib_results_dir: string being the directory of where the calibration results should be stored
-# test_img_file: string being the name of the image file to undistort
-# Outputs:
-# dst: image matrix of corrected test_image
-def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_img_file):
+
+def perform_calibration(boardX: int, boardY: int, calib_imgs_dir:str, calib_results_dir:str, test_img_file:str) -> cv.typing.MatLike:
+    # Function that performs camera calibration
+    # Inputs:
+    # boardX: integer being the number of corners in x
+    # boardY: integer being the number of corners in y
+    # calib_imgs_dir: string being the directory of where the calibration images are
+    # calib_results_dir: string being the directory of where the calibration results should be stored
+    # test_img_file: string being the name of the image file to undistort
+    # Outputs:
+    # dst: image matrix of corrected test_image
+    
     # termination criteria
     criteria = (cv.TERM_CRITERIA_EPS + cv.TERM_CRITERIA_MAX_ITER, 30, 0.001)
     
@@ -106,11 +108,11 @@ def perform_calibration(boardX, boardY, calib_imgs_dir, calib_results_dir, test_
     return dst
 
 
-def flatten_image(img, mtx, dist):
+def flatten_image(img: cv.typing.MatLike, mtx: cv.typing.MatLike, dist: cv.typing.MatLike)-> cv.typing.MatLike: 
     # Inputs:
-    # img - img matrix from camera, to be flattened
-    # mtx - calibration matrix, saved from initial calibration
-    # dist - dist matrix, saved from initial calibration
+    # img - img matrix from camera, to be flattened - MatLike
+    # mtx - calibration matrix, saved from initial calibration - MatLike
+    # dist - dist matrix, saved from initial calibration - MatLike
     # Outputs:
     # flat - img matrix from camera, without distortion
 
@@ -127,7 +129,7 @@ def flatten_image(img, mtx, dist):
     return flat
 
 
-def find_crop_vars(img, boardX, boardY, origin_xy):
+def find_crop_vars(img: cv.typing.MatLike, boardX: int, boardY: int, origin_xy: float)-> tuple[cv.typing.MatLike, float, float]:
     # returns cropped image
     # img - a corrected camera image (using calibration) (already imread'd)
     # boardX, boardY - # of intersections between squares in X and Y directions.
@@ -183,7 +185,8 @@ def find_crop_vars(img, boardX, boardY, origin_xy):
 
     return M, short_side, long_side
 
-def crop_checkerboard(img, origin_xy, short_side, long_side, M):
+
+def crop_checkerboard(img: cv.typing.MatLike, origin_xy: float, short_side:float, long_side:float, M: cv.typing.MatLike)-> cv.typing.MatLike:
     height, width, channels = img.shape
     img_warped = cv.warpPerspective(img, M, (width, height), flags=cv.INTER_LINEAR)
 
@@ -196,6 +199,21 @@ def crop_checkerboard(img, origin_xy, short_side, long_side, M):
     cropped = img_warped[0:int(short_side + origin_xy), 0:int(long_side + origin_xy)]
 
     return cropped
+
+
+def detect_blobs_in_cropped(img: cv.typing.MatLike, detector: cv.SimpleBlobDetector)-> cv.typing.MatLike:
+
+    # greyscale
+    grey = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+    # Otsu's thresholding after Gaussian filtering
+    blur = cv.GaussianBlur(grey,(5,5),0)
+    ret3,th3 = cv.threshold(blur,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
+
+    keypoints = detector.detect(th3)
+    img_with_keypoints = cv.drawKeypoints(blur, keypoints, np.array([]), (0, 0, 255), cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+    return img_with_keypoints
 
 
 def main():
