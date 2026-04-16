@@ -11,7 +11,7 @@ from camera_calibration.calibration import *
 
 ## INIT - things to run once at start
 
-# Values
+##  Values
 # interior Corners in x direction
 boardX = 10
 # interior Corners in y direction
@@ -25,26 +25,33 @@ calib_results_dir = mother_dir + '_results/'
 # origin of chessboard coord frame, in px - needs tuning if camera changes
 origin_xy = 28.0
 
-ROSE = (255, 29, 141) 
-
 lower = np.array([0, 0, 0])
 upper = np.array([170, 200, 170])
 
 # TODO: run calibration? test calibration?
 
-# cv.namedWindow("preview")
+# make camera available
 vc = cv.VideoCapture(2)
 
 # Set resolution (Property 3 is Width, 4 is Height)
 vc.set(cv.CAP_PROP_FRAME_WIDTH, 640)
 vc.set(cv.CAP_PROP_FRAME_HEIGHT, 360)
 
+# simpleblobdetector
+params = cv.SimpleBlobDetector_Params()
+params.filterByArea = True
+params.minArea = 100
+params.filterByCircularity = False
+params.filterByConvexity = False
+params.filterByInertia = False
+
+detector = cv.SimpleBlobDetector_create(params)
+
 if vc.isOpened(): # try to get the first frame
     rval, frame = vc.read()
 else:
     rval = False
 
-# M, short_side, long_side = find_crop_vars(frame, boardX, boardY, origin_xy)
 M = short_side = long_side = None
 
 ## LOOP - ros node go spin
@@ -58,36 +65,33 @@ while rval:
     if short_side == None or long_side == None:
         M, short_side, long_side = find_crop_vars(camera, boardX, boardY, origin_xy)
 
+    # crop the image
     cropped_camera = crop_checkerboard(camera, origin_xy, short_side, long_side, M)
 
-    blur = cv.blur(cropped_camera, (4, 4))
-    mask = cv.inRange(blur, lower, upper)
+    #greyscale the image
+    grey = cv.cvtColor(cropped_camera, cv.COLOR_BGR2GRAY)
 
-    params = cv.SimpleBlobDetector_Params()
+    # Otsu's thresholding after Gaussian filtering
+    blur = cv.GaussianBlur(grey,(5,5),0)
+    ret3,th3 = cv.threshold(blur,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
 
-    params.filterByArea = True
-    params.minArea = 50
-    params.filterByCircularity = False
-    params.filterByConvexity = False
-    params.filterByInertia = False
-
-    detector = cv.SimpleBlobDetector_create(params)
-
-    # try inverting binary image?
-    ksam = cv.bitwise_not(mask)
-
-    keypoints = detector.detect(ksam)
-    img_with_keypoints = cv.drawKeypoints(mask, keypoints, np.array([]), (0, 0, 255), cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+    # run simpleblobdetector
+    keypoints = detector.detect(th3)
+    img_with_keypoints = cv.drawKeypoints(blur, keypoints, np.array([]), (0, 0, 255), cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 
-    # # do a bunch of stuff to fullscreen the image
-    # cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
-    # cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
-    # cv.imshow("Fullscreen Window", mask)
+    # # look at the image step by step
+    # cv.imshow('src', cropped_camera)
+    # cv.imshow('grey', grey)
+    # cv.imshow("threshold", th3)
+    # cv.imshow("blob detection", img_with_keypoints)
 
-    cv.imshow("src", cropped_camera)
-    cv.imshow("mask", mask)
-    cv.imshow("blob detection", img_with_keypoints)
+
+    # do a bunch of stuff to fullscreen One image
+    cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
+    cv.setWindowProperty("Fullscreen Window", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
+    cv.imshow("Fullscreen Window", img_with_keypoints)
+    
 
     rval, frame = vc.read()
 
