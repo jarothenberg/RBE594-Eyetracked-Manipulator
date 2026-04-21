@@ -11,7 +11,7 @@ def main():
     args = argparse.Namespace(
                 filter='none',
                 ema_alpha=0.25,
-                camera=4,
+                camera=1,
                 calibration='dense',
                 grid_rows=5,
                 grid_cols=5,

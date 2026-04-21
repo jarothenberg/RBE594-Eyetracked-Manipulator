@@ -31,8 +31,7 @@ from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory
 from trajectory_msgs.msg import JointTrajectoryPoint
 import numpy as np
-
-from geometry_msgs.msg import Point
+from geometry_msgs.msg import PoseArray, Point
 
 class KeyboardController(Node):
 
@@ -56,6 +55,10 @@ class KeyboardController(Node):
 
         self.eyetracking_subscription = self.create_subscription(
             Point, '/eyetracking_pose', self.eyetracking_state_callback, 10
+        )
+
+        self.keypoints_subscription = self.create_subscription(
+            PoseArray, '/keypoints', self.keypoints_callback, 10
         )
 
         self.arm_joint_positions = [0.0] * 4
@@ -111,6 +114,11 @@ class KeyboardController(Node):
                     f'Received coordinates! X: {x_meter}, Y: {y_meter}'
                 )
                 self.send_arm_command()
+
+    def keypoints_callback(self, msg):
+        allKeypoints = msg.poses
+        self.get_logger().info(f'Received {len(allKeypoints)} keypoints!')
+        [self.get_logger().info(f'{[pt.position]}') for pt in allKeypoints]
 
     def joint_state_callback(self, msg):
         if set(self.arm_joint_names).issubset(set(msg.name)):
@@ -214,6 +222,26 @@ class KeyboardController(Node):
                 return [None]*4, False
             
         return thetas, True
+
+
+    # def closest_keypoint(pointin, keypoint_list):
+    #     point = [pointin.x, pointin.y]
+        
+    #     shortestDist = sys.float_info.max
+        
+    #     for k in keypoint_list:
+    #         p = [k.Point.x, k.Point.y]
+            
+    #         dist = np.linalg.norm(p - point)
+            
+    #         if dist < shortestDist:
+    #             shortestDist = dist
+    #         elif dist == shortestDist:
+    #             pass #TODO: handle both at equal dist
+            
+    #     print("shortest distance: " + str(shortestDist))
+    #     return shortestDist
+    
 
     def run(self):
         while (not self.joint_received) and rclpy.ok() and self.running:
