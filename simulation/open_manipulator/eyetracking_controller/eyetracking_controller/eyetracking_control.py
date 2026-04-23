@@ -65,11 +65,12 @@ class KeyboardController(Node):
         self.arm_joint_names = ['joint1', 'joint2', 'joint3', 'joint4']
 
         self.linkLens = [0.128, 0.124, 0.126]
-        self.linkOffs = [0.077, 0.024] # Simulated Robot
-        # self.linkOffs = [0.096326, 0.024] # Real Robot
+        # self.linkOffs = [0.077, 0.024] # Simulated Robot
+        self.linkOffs = [0.096326, 0.024] # Real Robot
+        self.forkDims = [0.10, 0.045]
 
         # self.arm_ee_positions = [0.274, 0, 0.205, 0]
-        self.arm_ee_positions = [0.16, 0, 0.145, 0] # Starting position from bringup
+        self.arm_ee_positions = [0.075, 0, 0.08, 0] # Starting position from bringup
 
         self.gripper_position = 0.0
         self.gripper_max = 0.019
@@ -77,6 +78,11 @@ class KeyboardController(Node):
 
         self.joint_received = False
         self.eyetracking_pose_recieved = False
+        self.keypoints_recieved = False
+        self.saved_closest_keypoint = False
+
+        self.gazeXY = np.zeros((2,1))
+        self.closestKeypoint = np.zeros((2,1))
 
         self.max_delta = 0.002
         self.gripper_delta = 0.002
@@ -90,36 +96,89 @@ class KeyboardController(Node):
 
     def eyetracking_state_callback(self, msg):
         self.eyetracking_pose_recieved = True
+
+        # this is the coords from the message
         xCoord = msg.x
         yCoord = msg.y
-        TL = [69, 167]
-        BR = [1473, 1566]
+        self.gazeXY = np.array([xCoord, yCoord])
+
+        # TODO: either calculate algorithmically or add to readme, 
+        # TL and BR will change if being run on a different laptop
+        TL = [69, 167] # top left of window in px
+        BR = [1473, 1566] # bottom right of window in px
+
         width = BR[0] - TL[0]
         height = BR[1] - TL[1]
         squareSize = 25 #mm
-        numSquareX = 10
-        numSquareY = 10
+        numSquareX = 11
+        numSquareY = 5
         totalYmm = squareSize * numSquareY
         totalYmm_pixel = totalYmm / height
         totalXmm = squareSize * numSquareX
         totalXmm_pixel = totalXmm / width
-        if TL[0] <= xCoord <= BR[0] and TL[1] <= yCoord <= BR[1]:
-            x_meter = ((xCoord - TL[0]) * totalXmm_pixel) / 1000
-            y_meter = -((yCoord - TL[1] - height/2) * totalYmm_pixel)/1000
 
-            self.arm_ee_positions = [x_meter, y_meter, 0.205, 0.0]
+        # this filters out coords outside the window
+        if (TL[0] <= xCoord <= BR[0] and 
+            TL[1] <= yCoord <= BR[1] and 
+            self.keypoints_recieved == True and # this line may be redundant
+            self.saved_closest_keypoint == True):
+
+            # pull closest keypoint
+            xKeypoint = self.closestKeypoint[0]
+            yKeypoint = self.closestKeypoint[1]
+
+            # convert px to meters
+            x_meter_blob = ((xKeypoint - TL[0]) * totalXmm_pixel) / 1000
+            y_meter_blob = -((yKeypoint - TL[1] - height/2) * totalYmm_pixel)/1000
+            x_meter_gaze = ((xCoord - TL[0]) * totalXmm_pixel) / 1000
+            y_meter_gaze = -((yCoord - TL[1] - height/2) * totalYmm_pixel)/1000
+            
+            # set desired arm coords
+            # note: X in px space is Y in meter space, and vice versa
+            self.arm_ee_positions = [y_meter_blob, x_meter_blob, 0.205, 0.0]
             self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
+            
             if success:
                 self.get_logger().info(
-                    f'Received coordinates! X: {x_meter}, Y: {y_meter}'
+                    f'Received gaze coordinates! X: {x_meter_gaze}, Y: {y_meter_gaze}'
+                    f'moving arm to closest blob! X: {x_meter_blob}, Y: {y_meter_blob}'
                 )
                 self.send_arm_command()
 
     def keypoints_callback(self, msg):
+        self.keypoints_recieved = True
         allKeypoints = msg.poses
         self.get_logger().info(f'Received {len(allKeypoints)} keypoints!')
+        
+        # collects and prints all blob centroid keypoints
         [self.get_logger().info(f'{[pt.position]}') for pt in allKeypoints]
 
+        if self.eyetracking_pose_recieved == True:
+            # find closest keypoint to gaze point
+            gazeXY = self.gazeXY
+
+            shortestDist = sys.float_info.max
+            closestKeypoint = []
+            
+            for k in allKeypoints:
+                p = np.array([k.position.x, k.position.y])
+                
+                dist = np.linalg.norm(p - gazeXY) # both must be numpy arrays for the subtraction to work
+                
+                if dist <= shortestDist:
+                    shortestDist = dist
+                    closestKeypoint = p
+                    # TODO: add condition for when dist == shortestDist
+                
+            # print("shortest distance: " + str(shortestDist))
+            # print("closest keypoint: " + str(closestKeypoint))
+
+            self.closestKeypoint = closestKeypoint
+            self.saved_closest_keypoint = True
+
+        
+        
+    
     def joint_state_callback(self, msg):
         if set(self.arm_joint_names).issubset(set(msg.name)):
             for i, joint in enumerate(self.arm_joint_names):
@@ -172,6 +231,7 @@ class KeyboardController(Node):
     
     def IK(self, pose):
 
+        # init dims of arm
         x = pose[0]
         y = pose[1]
         z = pose[2]
@@ -179,11 +239,13 @@ class KeyboardController(Node):
         
         L1 = self.linkLens[0]
         L2 = self.linkLens[1]
-        L3 = self.linkLens[2]
 
         O1 = self.linkOffs[0]
         O2 = self.linkOffs[1]
 
+        F1 = self.forkDims[0]
+        F2 = self.forkDims[1]
+        
         thetas = [0]*4
 
         thetas[0] = np.arctan2(y, x)
@@ -191,8 +253,12 @@ class KeyboardController(Node):
         r = np.sqrt(x**2 + y**2) - O2
         z_adj = z - O1
 
-        rw = r - L3 * np.cos(phi)
-        zw = z_adj - L3 * np.sin(phi)
+        # fork
+        forkLinkLen = np.sqrt(F1**2 + F2**2)
+        forkAng = np.arctan2(F1, F2)
+        
+        rw = r - forkLinkLen * np.cos(phi + forkAng) # dist from joint 1 to wrist
+        zw = z_adj + forkLinkLen * np.sin(phi + forkAng) # z height of wrist
 
         D_origin = rw**2 + zw**2
         cos_t2 = (D_origin - L1**2 - L2**2) / (2 * L1 * L2)
@@ -294,10 +360,10 @@ class KeyboardController(Node):
                         self.send_gripper_command()
 
                     self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
+                    self.get_logger().info(
+                        f'Received coordinates! X: {self.arm_ee_positions[0]}, Y: {self.arm_ee_positions[1]}, Z: {self.arm_ee_positions[2]}, Phi: {self.arm_ee_positions[3]}'
+                    )
                     if success:
-                        self.get_logger().info(
-                            f'Received coordinates! X: {self.arm_ee_positions[0]}, Y: {self.arm_ee_positions[1]}'
-                        )
                         self.send_arm_command()
                         self.last_command_time = current_time
 
