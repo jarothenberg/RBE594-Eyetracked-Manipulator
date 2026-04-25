@@ -65,9 +65,11 @@ class KeyboardController(Node):
         self.arm_joint_names = ['joint1', 'joint2', 'joint3', 'joint4']
 
         self.linkLens = [0.128, 0.124, 0.126]
-        # self.linkOffs = [0.077, 0.024] # Simulated Robot
-        self.linkOffs = [0.096326, 0.024] # Real Robot
-        self.forkDims = [0.10, 0.045]
+        self.linkOffs = [0.096326, 0.024]
+        # self.forkDims = [0.10, 0.045]
+        self.forkDims = [0.095, 0.0225]
+
+        self.jointLimits=((-np.pi, np.pi), (-1.5, 1.5), (-1.5, 1.4), (-1.7, 1.97))
 
         # self.arm_ee_positions = [0.274, 0, 0.205, 0]
         self.arm_ee_positions = [0.075, 0, 0.08, 0] # Starting position from bringup
@@ -231,62 +233,58 @@ class KeyboardController(Node):
     
     def IK(self, pose):
 
-        # init dims of arm
-        x = pose[0]
-        y = pose[1]
-        z = pose[2]
-        phi = pose[3]
-        
-        L1 = self.linkLens[0]
-        L2 = self.linkLens[1]
+        base_height = self.linkOffs[0]
+        shoulder_h  = self.linkOffs[1]
+        shoulder_v  = self.linkLens[0]
+        L2          = self.linkLens[1]
+        Fv = self.forkDims[0] 
+        Fh = self.forkDims[1]
 
-        O1 = self.linkOffs[0]
-        O2 = self.linkOffs[1]
+        x, y, z, phi = pose
 
-        F1 = self.forkDims[0]
-        F2 = self.forkDims[1]
-        
         thetas = [0]*4
 
         thetas[0] = np.arctan2(y, x)
+        r = np.sqrt(x**2 + y**2)
+
+        Lf = np.sqrt(Fh**2 + Fv**2)
+        delta = np.arctan2(Fv, Fh)
+        phi_eff = phi - delta
+
+        rw = r - Lf * np.cos(phi_eff)
+        zw = z - base_height - Lf * np.sin(phi_eff)
+        dw = np.sqrt(rw**2 + zw**2)
+
+        shoulderLen = np.sqrt(shoulder_v**2 + shoulder_h**2)
+
+        cbeta = (shoulderLen**2 + L2**2 - dw**2) / (2 * shoulderLen * L2)
+        if abs(cbeta) > 1:
+            print("Target is out of reach, no valid IK solution.")
+            return [None] * 4, False
         
-        r = np.sqrt(x**2 + y**2) - O2
-        z_adj = z - O1
+        sbeta = np.sqrt(1 - cbeta**2)
 
-        # fork
-        forkLinkLen = np.sqrt(F1**2 + F2**2)
-        forkAng = np.arctan2(F1, F2)
+        beta = np.arctan2(sbeta, cbeta)
         
-        rw = r - forkLinkLen * np.cos(phi + forkAng) # dist from joint 1 to wrist
-        zw = z_adj + forkLinkLen * np.sin(phi + forkAng) # z height of wrist
+        psi = np.arctan2(shoulder_v, shoulder_h)
 
-        D_origin = rw**2 + zw**2
-        cos_t2 = (D_origin - L1**2 - L2**2) / (2 * L1 * L2)
+        thetas[2] = np.pi - psi - beta
 
-        if abs(cos_t2) > 1:
-            print("OUT OF RANGE")
-            return [None]*4, False
+        gamma = np.arcsin(L2 * np.sin(beta) / dw)
+        tau = np.arcsin(shoulder_h / shoulderLen)
 
-        thetas[2] = np.arccos(cos_t2) - (np.pi / 2)
-        thetas[1] = np.arctan2(rw, zw) - np.arctan2(L2 * np.cos(thetas[2]), L1 - L2 * np.sin(thetas[2]))
-        thetas[3] = -phi - thetas[2] - thetas[1]
+        alpha = np.arctan2(zw, rw)
 
-        limits = [
-            (-np.pi, np.pi),
-            (-1.5, 1.5),
-            (-1.5, 1.4),
-            (-1.7, 1.97)
-        ]
+        thetas[1] = np.pi/2 - tau - gamma - alpha
+
+        thetas[3] = -thetas[1] - thetas[2] - phi
 
         for i in range(4):
-            thetas[i] = np.arctan2(np.sin(thetas[i]), np.cos(thetas[i]))
-            
-            low, high = limits[i]
-            if not (low <= thetas[i] <= high):
-                print(f"LIMIT VIOLATION: Joint {i+1} at {np.degrees(thetas[i]):.2f}° "
-                    f"is outside [{np.degrees(low):.0f}°, {np.degrees(high):.0f}°]")
-                return [None]*4, False
-            
+            lo, hi = self.jointLimits[i]
+            if not (lo <= thetas[i] <= hi):
+                print(f"Joint {i+1} angle {thetas[i]:.2f} out of limits ({lo:.2f}, {hi:.2f})")
+                return [None] * 4, False
+
         return thetas, True
 
 
