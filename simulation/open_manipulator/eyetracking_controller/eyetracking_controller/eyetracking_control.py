@@ -54,6 +54,10 @@ class KeyboardController(Node):
             PoseArray, '/keypoints', self.keypoints_callback, 10
         )
 
+        self.overhead_cam_image_dims_subscription = self.create_subscription(
+            Point, '/overhead_cam_image_dims', self.overhead_cam_image_dims_callback, 10
+        )
+
         self.arm_joint_positions = [0.0] * 4
         self.arm_joint_names = ['joint1', 'joint2', 'joint3', 'joint4']
 
@@ -72,12 +76,17 @@ class KeyboardController(Node):
             self.joints_home = [0.0] * 4
 
         self.joint_received = False
+
         self.gaze_logging = True
         self.keypoins_logging = True
+        self.img_dims_logging = True
+        
 
         self.gazeXY = np.array([-1, -1])
         self.keypoints = []
-
+        self.imageWidth = 0
+        self.imageHeight = 0
+        
         self.max_delta = 0.002
         self.last_command_time = time.time()
         self.command_interval = 0.02
@@ -86,6 +95,12 @@ class KeyboardController(Node):
 
         self.get_logger().info('Waiting for /joint_states...')
         self.rate = self.create_rate(10)
+
+    def overhead_cam_image_dims_callback(self, msg):
+        # this is the coords from the message
+        self.imageWidth = msg.x
+        self.imageHeight = msg.y
+        # self.get_logger().info(f'Received Image Dims: Width = {self.imageWidth}, Height = {self.imageHeight}')
 
     def eyetracking_state_callback(self, msg):
         # this is the coords from the message
@@ -107,53 +122,56 @@ class KeyboardController(Node):
     def process_data(self):
         # TODO: either calculate algorithmically or add to readme, 
         # TL and BR are system dependent and may need to be adjusted.
-        TLpixelsWindow = [84, 176] # top left of window in pixels
-        BRpixelsWindow = [2559, 1301] # bottom right of window in pixels
-
+        TLpixelsWindow = [0, 225] # top left of window in pixels
+        BRpixelsWindow = [2559, 1376] # bottom right of window in pixels
         TLpixel_meters = [0.0625, -0.1375] # Robot pose of TL camera pixel
 
-        imgWidth = BRpixelsWindow[0] - TLpixelsWindow[0] # Replace with actual image width
-        imgHeight = BRpixelsWindow[1] - TLpixelsWindow[1] # Replace with actual image height
-        width = imgWidth # Width of overhead camera image in pixels
-        height = imgHeight # Height of overhead camera image in pixles
-        squareSize = 0.025 #meters
-        numSquareX = 11
-        numSquareY = 5
-        totalYm = squareSize * numSquareY
-        totalYm_pixel = totalYm / height
-        totalXm = squareSize * numSquareX
-        totalXm_pixel = totalXm / width
+        validImgDims = self.imageWidth > 0 and self.imageHeight > 0
+        if validImgDims:
+            if not self.img_dims_logging:
+                self.img_dims_logging = True
+        elif self.img_dims_logging:
+            self.img_dims_logging = False
+            self.get_logger().info('Waiting for image dimensions...')
 
         validGaze = TLpixelsWindow[0] < self.gazeXY[0] < BRpixelsWindow[0] and TLpixelsWindow[1] < self.gazeXY[1] < BRpixelsWindow[1]
-        if validGaze and not self.gaze_logging:
-            self.gaze_logging = True
+        if validGaze:
+            if not self.gaze_logging:
+                self.gaze_logging = True
         elif self.gaze_logging:
             self.gaze_logging = False
             self.get_logger().info('Waiting for gaze...')
 
         if len(self.keypoints) > 0:
-            self.keypoins_logging = True
+            if not self.keypoins_logging:
+                self.keypoins_logging = True
 
-            if validGaze:
+            if validGaze and validImgDims:
+
+                screenImageWidth = BRpixelsWindow[0] - TLpixelsWindow[0]
+                imageScale = self.imageWidth / screenImageWidth
+
+                adjustedGaze = (self.gazeXY - np.array(TLpixelsWindow)) * imageScale
+                
+                squareSize = 0.025 #meters
+                numSquareX = 11
+                totalXm = squareSize * numSquareX
+                pixels2meters = totalXm / self.imageWidth
                 # find closest keypoint to gaze point
                 closestKeypoint = np.array(self.keypoints[0])
-                shortestDist = np.linalg.norm(closestKeypoint - self.gazeXY)
+                shortestDist = np.linalg.norm(closestKeypoint - adjustedGaze)
                 if len(self.keypoints) > 1:
                     for kpNum in range(1, len(self.keypoints)):
                         p = np.array(self.keypoints[kpNum])
-                        dist = np.linalg.norm(p - self.gazeXY) # both must be numpy arrays for the subtraction to work
+                        dist = np.linalg.norm(p - adjustedGaze) # both must be numpy arrays for the subtraction to work
 
                         if dist <= shortestDist:
                             shortestDist = dist
                             closestKeypoint = p
                             
                 print(f'Closest keypoint to gaze: {closestKeypoint} with distance {shortestDist}')
-                x_meter_blob = closestKeypoint[0] * totalXm_pixel + TLpixel_meters[1]
-                y_meter_blob = closestKeypoint[1] * totalYm_pixel + TLpixel_meters[0]
-
-
-                # TL_board_meters = [0.062, 0.1375] # Should equal 0,0 in pixels
-                # BR_board_meters = [0.187, -0.1375] # Should equal to 640,1408 in pixels
+                x_meter_blob = closestKeypoint[0] * pixels2meters + TLpixel_meters[1]
+                y_meter_blob = closestKeypoint[1] * pixels2meters + TLpixel_meters[0]
 
                 blobCoords = [y_meter_blob, x_meter_blob]
                 self.retrieve_food(blobCoords)
@@ -162,11 +180,7 @@ class KeyboardController(Node):
 
         elif self.keypoins_logging:
             self.keypoins_logging = False
-            self.get_logger().info('Waiting for keypoints...')
-        # convert gaze pixels to meters
-        # x_meter_gaze = ((self.gazeXY[0] - TL[0]) * totalXm_pixel)
-        # y_meter_gaze = -((self.gazeXY[1] - TL[1] - height/2) * totalYm_pixel)
-        
+            self.get_logger().info('Waiting for keypoints...')        
             
     
     def joint_state_callback(self, msg):
@@ -368,9 +382,10 @@ class KeyboardController(Node):
             'Use 1/q, 2/w, 3/e, 4/r for +/- x, y, z, phi. Press ESC to exit.'
         )
 
-        self.gazeXY = np.array([653, 1247])
-        # self.keypoints = [[672, 1012], [520, 1385], [263, 364], [583, 449]]
-        self.keypoints = [[2240-84,518-176]]
+        self.imageHeight = 144
+        self.imageWidth = 320
+        self.gazeXY = np.array([588, 925])
+        self.keypoints = [[43, 43], [277, 43], [277, 103], [43, 103]]
         while True:
             # self.retrieve_food([0.1,0.104])
             # self.return_home()

@@ -5,9 +5,8 @@ import glob
 import math
 
 import rclpy
-from rclpy.action import ActionClient
 from rclpy.node import Node
-from geometry_msgs.msg import PoseArray, Pose
+from geometry_msgs.msg import PoseArray, Pose, Point
 from builtin_interfaces.msg import Time
 from std_msgs.msg import Header
 
@@ -225,6 +224,8 @@ def detect_blobs_in_cropped(img, detector: cv.SimpleBlobDetector):
 class OverheadCam(Node):
     def __init__(self):
         super().__init__('overhead_cam')
+        self.keypoints_publisher = self.create_publisher(PoseArray, 'keypoints', 10)
+        self.imageDims_publisher = self.create_publisher(Point, 'overhead_cam_image_dims', 10)
 
 def main():
     '''this file can run on its own, and is designed to flatten and display the checkerboard workspace of the robot.'''
@@ -273,9 +274,7 @@ def main():
     rclpy.init()
 
     oc = OverheadCam()
-    oc.arm_publisher = oc.create_publisher(
-        PoseArray, '/keypoints', 10
-    )
+
     ## LOOP - ros node go spin
     while rval:
 
@@ -319,7 +318,16 @@ def main():
             pose.orientation.z = 0.0
             pose.orientation.w = 1.0
             keypoints_msg.poses.append(pose)
-        oc.arm_publisher.publish(keypoints_msg)
+        oc.keypoints_publisher.publish(keypoints_msg)
+
+        # publish image dimensions as Point
+        imgHeight, imgWidth = cropped_camera.shape[:2]
+        imageDims_msg = Point()
+        imageDims_msg.x = float(imgWidth)
+        imageDims_msg.y = float(imgHeight)
+        imageDims_msg.z = float(0)
+        oc.imageDims_publisher.publish(imageDims_msg)
+
 
         # do a bunch of stuff to fullscreen One image
         cv.namedWindow("Fullscreen Window", cv.WINDOW_NORMAL)
