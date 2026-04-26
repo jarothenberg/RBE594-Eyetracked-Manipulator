@@ -23,9 +23,7 @@ import threading
 import time
 import tty
 
-from control_msgs.action import GripperCommand
 import rclpy
-from rclpy.action import ActionClient
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory
@@ -41,11 +39,6 @@ class KeyboardController(Node):
         # Publisher for arm joint control
         self.arm_publisher = self.create_publisher(
             JointTrajectory, '/arm_controller/joint_trajectory', 10
-        )
-
-        # Action client for GripperCommand
-        self.gripper_client = ActionClient(
-            self, GripperCommand, '/gripper_controller/gripper_cmd'
         )
 
         # Subscriber for joint states
@@ -73,21 +66,19 @@ class KeyboardController(Node):
 
         # self.arm_ee_positions = [0.274, 0, 0.205, 0]
         self.arm_ee_positions = [0.075, 0, 0.08, 0] # Starting position from bringup
-
-        self.gripper_position = 0.0
-        self.gripper_max = 0.019
-        self.gripper_min = -0.01
+        self.joints_home, success = self.IK(self.arm_ee_positions)
+        if not success:
+            self.get_logger().error('Failed to calculate IK for the home position.')
+            self.joints_home = [0.0] * 4
 
         self.joint_received = False
-        self.eyetracking_pose_recieved = False
-        self.keypoints_recieved = False
-        self.saved_closest_keypoint = False
+        self.gaze_logging = True
+        self.keypoins_logging = True
 
-        self.gazeXY = np.zeros((2,1))
-        self.closestKeypoint = np.zeros((2,1))
+        self.gazeXY = np.array([-1, -1])
+        self.keypoints = []
 
         self.max_delta = 0.002
-        self.gripper_delta = 0.002
         self.last_command_time = time.time()
         self.command_interval = 0.02
 
@@ -97,89 +88,86 @@ class KeyboardController(Node):
         self.rate = self.create_rate(10)
 
     def eyetracking_state_callback(self, msg):
-        self.eyetracking_pose_recieved = True
-
         # this is the coords from the message
         xCoord = msg.x
         yCoord = msg.y
+        # self.get_logger().info(f'Received Gaze: X = {self.xCoord}, Y = {self.yCoord}')
         self.gazeXY = np.array([xCoord, yCoord])
 
-        # TODO: either calculate algorithmically or add to readme, 
-        # TL and BR will change if being run on a different laptop
-        TL = [69, 167] # top left of window in px
-        BR = [1473, 1566] # bottom right of window in px
-
-        width = BR[0] - TL[0]
-        height = BR[1] - TL[1]
-        squareSize = 25 #mm
-        numSquareX = 11
-        numSquareY = 5
-        totalYmm = squareSize * numSquareY
-        totalYmm_pixel = totalYmm / height
-        totalXmm = squareSize * numSquareX
-        totalXmm_pixel = totalXmm / width
-
-        # this filters out coords outside the window
-        if (TL[0] <= xCoord <= BR[0] and 
-            TL[1] <= yCoord <= BR[1] and 
-            self.keypoints_recieved == True and # this line may be redundant
-            self.saved_closest_keypoint == True):
-
-            # pull closest keypoint
-            xKeypoint = self.closestKeypoint[0]
-            yKeypoint = self.closestKeypoint[1]
-
-            # convert px to meters
-            x_meter_blob = ((xKeypoint - TL[0]) * totalXmm_pixel) / 1000
-            y_meter_blob = -((yKeypoint - TL[1] - height/2) * totalYmm_pixel)/1000
-            x_meter_gaze = ((xCoord - TL[0]) * totalXmm_pixel) / 1000
-            y_meter_gaze = -((yCoord - TL[1] - height/2) * totalYmm_pixel)/1000
-            
-            # set desired arm coords
-            # note: X in px space is Y in meter space, and vice versa
-            self.arm_ee_positions = [y_meter_blob, x_meter_blob, 0.205, 0.0]
-            self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
-            
-            if success:
-                self.get_logger().info(
-                    f'Received gaze coordinates! X: {x_meter_gaze}, Y: {y_meter_gaze}'
-                    f'moving arm to closest blob! X: {x_meter_blob}, Y: {y_meter_blob}'
-                )
-                self.send_arm_command()
-
     def keypoints_callback(self, msg):
-        self.keypoints_recieved = True
         allKeypoints = msg.poses
-        self.get_logger().info(f'Received {len(allKeypoints)} keypoints!')
+        # self.get_logger().info(f'Received {len(allKeypoints)} keypoints!')
         
         # collects and prints all blob centroid keypoints
-        [self.get_logger().info(f'{[pt.position]}') for pt in allKeypoints]
+        # [self.get_logger().info(f'{[pt.position]}') for pt in allKeypoints]
 
-        if self.eyetracking_pose_recieved == True:
-            # find closest keypoint to gaze point
-            gazeXY = self.gazeXY
+        self.keypoints = [[pt.position.x, pt.position.y] for pt in allKeypoints]
 
-            shortestDist = sys.float_info.max
-            closestKeypoint = []
+
+    def process_data(self):
+        # TODO: either calculate algorithmically or add to readme, 
+        # TL and BR are system dependent and may need to be adjusted.
+        TLpixelsWindow = [84, 176] # top left of window in pixels
+        BRpixelsWindow = [2559, 1301] # bottom right of window in pixels
+
+        TLpixel_meters = [0.0625, -0.1375] # Robot pose of TL camera pixel
+
+        imgWidth = BRpixelsWindow[0] - TLpixelsWindow[0] # Replace with actual image width
+        imgHeight = BRpixelsWindow[1] - TLpixelsWindow[1] # Replace with actual image height
+        width = imgWidth # Width of overhead camera image in pixels
+        height = imgHeight # Height of overhead camera image in pixles
+        squareSize = 0.025 #meters
+        numSquareX = 11
+        numSquareY = 5
+        totalYm = squareSize * numSquareY
+        totalYm_pixel = totalYm / height
+        totalXm = squareSize * numSquareX
+        totalXm_pixel = totalXm / width
+
+        validGaze = TLpixelsWindow[0] < self.gazeXY[0] < BRpixelsWindow[0] and TLpixelsWindow[1] < self.gazeXY[1] < BRpixelsWindow[1]
+        if validGaze and not self.gaze_logging:
+            self.gaze_logging = True
+        elif self.gaze_logging:
+            self.gaze_logging = False
+            self.get_logger().info('Waiting for gaze...')
+
+        if len(self.keypoints) > 0:
+            self.keypoins_logging = True
+
+            if validGaze:
+                # find closest keypoint to gaze point
+                closestKeypoint = np.array(self.keypoints[0])
+                shortestDist = np.linalg.norm(closestKeypoint - self.gazeXY)
+                if len(self.keypoints) > 1:
+                    for kpNum in range(1, len(self.keypoints)):
+                        p = np.array(self.keypoints[kpNum])
+                        dist = np.linalg.norm(p - self.gazeXY) # both must be numpy arrays for the subtraction to work
+
+                        if dist <= shortestDist:
+                            shortestDist = dist
+                            closestKeypoint = p
+                            
+                print(f'Closest keypoint to gaze: {closestKeypoint} with distance {shortestDist}')
+                x_meter_blob = closestKeypoint[0] * totalXm_pixel + TLpixel_meters[1]
+                y_meter_blob = closestKeypoint[1] * totalYm_pixel + TLpixel_meters[0]
+
+
+                # TL_board_meters = [0.062, 0.1375] # Should equal 0,0 in pixels
+                # BR_board_meters = [0.187, -0.1375] # Should equal to 640,1408 in pixels
+
+                blobCoords = [y_meter_blob, x_meter_blob]
+                self.retrieve_food(blobCoords)
+                time.sleep(5)
+                self.return_home()
+
+        elif self.keypoins_logging:
+            self.keypoins_logging = False
+            self.get_logger().info('Waiting for keypoints...')
+        # convert gaze pixels to meters
+        # x_meter_gaze = ((self.gazeXY[0] - TL[0]) * totalXm_pixel)
+        # y_meter_gaze = -((self.gazeXY[1] - TL[1] - height/2) * totalYm_pixel)
+        
             
-            for k in allKeypoints:
-                p = np.array([k.position.x, k.position.y])
-                
-                dist = np.linalg.norm(p - gazeXY) # both must be numpy arrays for the subtraction to work
-                
-                if dist <= shortestDist:
-                    shortestDist = dist
-                    closestKeypoint = p
-                    # TODO: add condition for when dist == shortestDist
-                
-            # print("shortest distance: " + str(shortestDist))
-            # print("closest keypoint: " + str(closestKeypoint))
-
-            self.closestKeypoint = closestKeypoint
-            self.saved_closest_keypoint = True
-
-        
-        
     
     def joint_state_callback(self, msg):
         if set(self.arm_joint_names).issubset(set(msg.name)):
@@ -189,13 +177,88 @@ class KeyboardController(Node):
 
         if 'rh_r1_joint' in msg.name:
             index = msg.name.index('rh_r1_joint')
-            self.gripper_position = msg.position[index]
 
         self.joint_received = True
         # self.get_logger().info(
-        #     f'Received joint states: {self.arm_joint_positions}, '
-        #     f'Gripper: {self.gripper_position}'
+        #     f'Received joint states: {self.arm_joint_positions}'
         # )
+
+    def get_quintic_pos(self, q_start, q_end, t, T):
+        q_start = np.array(q_start)
+        q_end = np.array(q_end)
+        
+        s = 10 * (t/T)**3 - 15 * (t/T)**4 + 6 * (t/T)**5
+        return q_start + (q_end - q_start) * s
+
+    def retrieve_food(self, coords):
+        aboveBeforeFoodPose = [coords[0], coords[1], 0.124, 0.0]
+        aboveBeforeFoodJoints, success = self.IK(aboveBeforeFoodPose)
+
+        if not success:
+            self.get_logger().error('Failed to calculate IK for the above food pose.')
+            return
+        
+        atFoodPose = [coords[0], coords[1], 0.062, 0.0]
+        atFoodJoints, success = self.IK(atFoodPose)
+
+        if not success:
+            self.get_logger().error('Failed to calculate IK for the at food pose.')
+            return
+        
+        aboveAfterFoodPose = [coords[0], coords[1], 0.248, np.pi/2]
+        aboveAfterFoodJoints, success = self.IK(aboveAfterFoodPose)
+
+        if not success:
+            self.get_logger().error('Failed to calculate IK for the above after food pose.')
+            return
+        
+        desiredForkAng = np.pi/12
+        angAdjusted = np.pi/2 - desiredForkAng
+        eatingPose = [0.127, -0.1375, 0.248, angAdjusted]
+        eatingJoints, success = self.IK(eatingPose)
+
+        if not success:
+            self.get_logger().error('Failed to calculate IK for the eating pose.')
+            return
+
+        current_joints = self.arm_joint_positions 
+        target_keyframes = [aboveBeforeFoodJoints, atFoodJoints, aboveAfterFoodJoints, eatingJoints]
+        
+        T = 2.5
+        dt = 0.1
+        
+        start_pos = current_joints
+        
+        for goal_pos in target_keyframes:
+            t = 0.0
+            while t < T:
+                waypoint = self.get_quintic_pos(start_pos, goal_pos, t, T)
+                
+                self.arm_joint_positions = waypoint.tolist()
+                self.send_arm_command()
+                
+                t += dt
+                time.sleep(dt)
+            start_pos = goal_pos 
+
+    def return_home(self):
+        current_joints = self.arm_joint_positions 
+        
+        T = 2.5
+        dt = 0.1
+        
+        start_pos = current_joints
+        goal_pos = self.joints_home
+        
+        t = 0.0
+        while t < T:
+            waypoint = self.get_quintic_pos(start_pos, goal_pos, t, T)
+            
+            self.arm_joint_positions = waypoint.tolist()
+            self.send_arm_command()
+            
+            t += dt
+            time.sleep(dt)
 
     def get_key(self, timeout=0.01):
         fd = sys.stdin.fileno()
@@ -218,18 +281,6 @@ class KeyboardController(Node):
         arm_msg.points.append(arm_point)
         self.arm_publisher.publish(arm_msg)
         # self.get_logger().info(f'Arm command sent: {self.arm_joint_positions}')
-        #TODO check if connected to hardware robot and send if connected
-
-    def send_gripper_command(self):
-        goal_msg = GripperCommand.Goal()
-        goal_msg.command.position = self.gripper_position
-        goal_msg.command.max_effort = 10.0
-
-        # self.get_logger().info(f'Sending gripper command: {goal_msg.command.position}')
-        self.gripper_client.wait_for_server()
-        self.gripper_client.send_goal_async(goal_msg)
-        #TODO check if connected to hardware robot and send if connected
-
     
     def IK(self, pose):
 
@@ -314,8 +365,16 @@ class KeyboardController(Node):
 
         self.get_logger().info('Ready to receive keyboard and eyetracking input!')
         self.get_logger().info(
-            'Use 1/q, 2/w, 3/e, 4/r for joints 1-4, o/p for gripper. Press ESC to exit.'
+            'Use 1/q, 2/w, 3/e, 4/r for +/- x, y, z, phi. Press ESC to exit.'
         )
+
+        self.gazeXY = np.array([653, 1247])
+        # self.keypoints = [[672, 1012], [520, 1385], [263, 364], [583, 449]]
+        self.keypoints = [[2240-84,518-176]]
+        while True:
+            # self.retrieve_food([0.1,0.104])
+            # self.return_home()
+            self.process_data()
         try:
             while rclpy.ok() and self.running:
                 key = self.get_key()
@@ -344,18 +403,6 @@ class KeyboardController(Node):
                         self.arm_ee_positions[3] += self.max_delta
                     elif key == 'r':
                         self.arm_ee_positions[3] -= self.max_delta
-                    elif key == 'o':  # Open gripper
-                        new_pos = min(
-                            self.gripper_position + self.gripper_delta, self.gripper_max 
-                        )
-                        self.gripper_position = new_pos
-                        self.send_gripper_command()
-                    elif key == 'p':  # Close gripper
-                        new_pos = max(
-                            self.gripper_position - self.gripper_delta, self.gripper_min
-                        )
-                        self.gripper_position = new_pos
-                        self.send_gripper_command()
 
                     self.arm_joint_positions, success = self.IK(self.arm_ee_positions)
                     self.get_logger().info(

@@ -22,13 +22,16 @@ from pathlib import Path
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition
 from launch.actions import IncludeLaunchDescription
 from launch.actions import RegisterEventHandler
 from launch.actions import SetEnvironmentVariable
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
 import xacro
 
 
@@ -55,6 +58,16 @@ def generate_launch_description():
         DeclareLaunchArgument(
             'world', default_value='empty_world', description='Gz sim World'
         ),
+        DeclareLaunchArgument(
+            'init_position',
+            default_value='true',
+            description='Whether to launch the init_position node',
+        ),
+        DeclareLaunchArgument(
+            'init_position_file',
+            default_value='initial_positions.yaml',
+            description='Path to the initial position file',
+        ),
     ])
 
     gazebo = IncludeLaunchDescription(
@@ -66,6 +79,15 @@ def generate_launch_description():
             ('gz_args', [LaunchConfiguration('world'), '.sdf', ' -v 1', ' -r'])
         ],
     )
+
+    init_position_file = LaunchConfiguration('init_position_file')
+    init_position = LaunchConfiguration('init_position')
+    trajectory_params_file = PathJoinSubstitution([
+        FindPackageShare('open_manipulator_bringup'),
+        'config',
+        'open_manipulator_x',
+        init_position_file,
+    ])
 
     xacro_file = os.path.join(
         open_manipulator_description_path,
@@ -148,6 +170,14 @@ def generate_launch_description():
         output='screen',
     )
 
+    joint_trajectory_executor = Node(
+        package='open_manipulator_bringup',
+        executable='joint_trajectory_executor',
+        parameters=[trajectory_params_file],
+        output='both',
+        condition=IfCondition(init_position),
+    )
+
     # rviz_config_file = os.path.join(
     #     open_manipulator_description_path, 'rviz', 'open_manipulator.rviz'
     # )
@@ -170,7 +200,7 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=joint_state_broadcaster_spawner,
-                on_exit=[arm_controller_spawner, gripper_controller_spawner],
+                on_exit=[arm_controller_spawner, gripper_controller_spawner, joint_trajectory_executor],
             )
         ),
         bridge,
