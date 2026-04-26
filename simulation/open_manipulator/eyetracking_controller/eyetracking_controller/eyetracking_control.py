@@ -81,7 +81,8 @@ class KeyboardController(Node):
         self.keypoins_logging = True
         self.img_dims_logging = True
         
-
+        self.TLpixelsWindow = [0, 225] # top left of window in pixels
+        self.BRpixelsWindow = [2559, 1376] # top right of window in pixels
         self.gazeXY = np.array([-1, -1])
         self.keypoints = []
         self.imageWidth = 0
@@ -120,10 +121,6 @@ class KeyboardController(Node):
 
 
     def process_data(self):
-        # TODO: either calculate algorithmically or add to readme, 
-        # TL and BR are system dependent and may need to be adjusted.
-        TLpixelsWindow = [0, 225] # top left of window in pixels
-        BRpixelsWindow = [2559, 1376] # bottom right of window in pixels
         TLpixel_meters = [0.0625, -0.1375] # Robot pose of TL camera pixel
 
         validImgDims = self.imageWidth > 0 and self.imageHeight > 0
@@ -134,7 +131,7 @@ class KeyboardController(Node):
             self.img_dims_logging = False
             self.get_logger().info('Waiting for image dimensions...')
 
-        validGaze = TLpixelsWindow[0] < self.gazeXY[0] < BRpixelsWindow[0] and TLpixelsWindow[1] < self.gazeXY[1] < BRpixelsWindow[1]
+        validGaze = self.TLpixelsWindow[0] < self.gazeXY[0] < self.BRpixelsWindow[0] and self.TLpixelsWindow[1] < self.gazeXY[1] < self.BRpixelsWindow[1]
         if validGaze:
             if not self.gaze_logging:
                 self.gaze_logging = True
@@ -148,10 +145,10 @@ class KeyboardController(Node):
 
             if validGaze and validImgDims:
 
-                screenImageWidth = BRpixelsWindow[0] - TLpixelsWindow[0]
+                screenImageWidth = self.BRpixelsWindow[0] - self.TLpixelsWindow[0]
                 imageScale = self.imageWidth / screenImageWidth
 
-                adjustedGaze = (self.gazeXY - np.array(TLpixelsWindow)) * imageScale
+                adjustedGaze = (self.gazeXY - np.array(self.TLpixelsWindow)) * imageScale
                 
                 squareSize = 0.025 #meters
                 numSquareX = 11
@@ -382,10 +379,14 @@ class KeyboardController(Node):
             'Use 1/q, 2/w, 3/e, 4/r for +/- x, y, z, phi. Press ESC to exit.'
         )
 
-        self.imageHeight = 144
-        self.imageWidth = 320
-        self.gazeXY = np.array([588, 925])
-        self.keypoints = [[43, 43], [277, 43], [277, 103], [43, 103]]
+        # TODO: either calculate algorithmically or add to readme, 
+        # TL and BR are system dependent and may need to be adjusted.
+        self.TLpixelsWindow = [0, 225] # top left of overhead camera image on the laptop screen in pixels
+        self.BRpixelsWindow = [2559, 1376] # bottom right of overhead camera image on the laptop screen in pixels
+        self.imageHeight = 144 # height of overhead camera image in pixels
+        self.imageWidth = 320 # width of overhead camera image in pixels
+        self.gazeXY = np.array([588, 925]) # eyetracked gaze on the laptop screen in pixels
+        self.keypoints = [[43, 43], [277, 43], [277, 103], [43, 103]] # keypoints in overhead camera image in pixels
         while True:
             # self.retrieve_food([0.1,0.104])
             # self.return_home()
