@@ -248,7 +248,7 @@ def main():
     # TODO: run calibration? test calibration?
 
     # make camera available
-    vc = cv.VideoCapture(5)
+    vc = cv.VideoCapture(7)
 
     # Set resolution (Property 3 is Width, 4 is Height)
     vc.set(cv.CAP_PROP_FRAME_WIDTH, 640)
@@ -298,7 +298,7 @@ def main():
 
         # run simpleblobdetector
         keypoints = detector.detect(th3)
-        img_with_keypoints = cv.drawKeypoints(blur, keypoints, np.array([]), (0, 0, 255), cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        img_with_keypoints = cv.drawKeypoints(cropped_camera, keypoints, np.array([]), (0, 0, 255), cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
         # publish keypoints as PoseArray
         keypoints_msg = PoseArray()

@@ -63,7 +63,6 @@ class KeyboardController(Node):
 
         self.linkLens = [0.128, 0.124, 0.126]
         self.linkOffs = [0.096326, 0.024]
-        # self.forkDims = [0.10, 0.045]
         self.forkDims = [0.095, 0.0225]
 
         self.jointLimits=((-np.pi, np.pi), (-1.5, 1.5), (-1.5, 1.4), (-1.7, 1.97))
@@ -121,7 +120,7 @@ class KeyboardController(Node):
 
 
     def process_data(self):
-        TLpixel_meters = [0.0625, -0.1375] # Robot pose of TL camera pixel
+        TLpixel_meters = [0.065, -0.1375] # Robot pose of TL camera pixel
 
         validImgDims = self.imageWidth > 0 and self.imageHeight > 0
         if validImgDims:
@@ -202,21 +201,21 @@ class KeyboardController(Node):
         return q_start + (q_end - q_start) * s
 
     def retrieve_food(self, coords):
-        aboveBeforeFoodPose = [coords[0], coords[1], 0.124, 0.0]
+        aboveBeforeFoodPose = [coords[0], coords[1], 0.1, 0.0]
         aboveBeforeFoodJoints, success = self.IK(aboveBeforeFoodPose)
 
         if not success:
             self.get_logger().error('Failed to calculate IK for the above food pose.')
             return
         
-        atFoodPose = [coords[0], coords[1], 0.062, 0.0]
+        atFoodPose = [coords[0], coords[1], 0.02, 0.0]
         atFoodJoints, success = self.IK(atFoodPose)
 
         if not success:
             self.get_logger().error('Failed to calculate IK for the at food pose.')
             return
         
-        aboveAfterFoodPose = [coords[0], coords[1], 0.248, np.pi/2]
+        aboveAfterFoodPose = [coords[0], coords[1], 0.25, np.pi/2]
         aboveAfterFoodJoints, success = self.IK(aboveAfterFoodPose)
 
         if not success:
@@ -225,7 +224,7 @@ class KeyboardController(Node):
         
         desiredForkAng = np.pi/12
         angAdjusted = np.pi/2 - desiredForkAng
-        eatingPose = [0.127, -0.1375, 0.248, angAdjusted]
+        eatingPose = [0.127, -0.1375, 0.25, angAdjusted]
         eatingJoints, success = self.IK(eatingPose)
 
         if not success:
@@ -236,7 +235,7 @@ class KeyboardController(Node):
         target_keyframes = [aboveBeforeFoodJoints, atFoodJoints, aboveAfterFoodJoints, eatingJoints]
         
         T = 2.5
-        dt = 0.1
+        dt = 0.001
         
         start_pos = current_joints
         
@@ -256,7 +255,7 @@ class KeyboardController(Node):
         current_joints = self.arm_joint_positions 
         
         T = 2.5
-        dt = 0.1
+        dt = 0.001
         
         start_pos = current_joints
         goal_pos = self.joints_home
@@ -381,16 +380,15 @@ class KeyboardController(Node):
 
         # TODO: either calculate algorithmically or add to readme, 
         # TL and BR are system dependent and may need to be adjusted.
-        self.TLpixelsWindow = [0, 225] # top left of overhead camera image on the laptop screen in pixels
-        self.BRpixelsWindow = [2559, 1376] # bottom right of overhead camera image on the laptop screen in pixels
-        self.imageHeight = 144 # height of overhead camera image in pixels
-        self.imageWidth = 320 # width of overhead camera image in pixels
-        self.gazeXY = np.array([588, 925]) # eyetracked gaze on the laptop screen in pixels
-        self.keypoints = [[43, 43], [277, 43], [277, 103], [43, 103]] # keypoints in overhead camera image in pixels
+        # self.TLpixelsWindow = [0, 225] # top left of overhead camera image on the laptop screen in pixels
+        # self.BRpixelsWindow = [2559, 1376] # bottom right of overhead camera image on the laptop screen in pixels
+        # self.imageHeight = 144 # height of overhead camera image in pixels
+        # self.imageWidth = 320 # width of overhead camera image in pixels
+        # self.gazeXY = np.array([588, 925]) # eyetracked gaze on the laptop screen in pixels
+        # self.keypoints = [[43, 43], [277, 43], [277, 103], [43, 103]] # keypoints in overhead camera image in pixels
         while True:
-            # self.retrieve_food([0.1,0.104])
-            # self.return_home()
             self.process_data()
+            self.return_home()
         try:
             while rclpy.ok() and self.running:
                 key = self.get_key()

@@ -9,10 +9,10 @@ def main():
     args = argparse.Namespace(
                 filter='none',
                 ema_alpha=0.25,
-                camera=1,
+                camera=5,
                 calibration='dense',
-                grid_rows=5,
-                grid_cols=5,
+                grid_rows=9,
+                grid_cols=9,
                 grid_margin=0.1,
                 background=None, 
                 confidence=0.9, 
