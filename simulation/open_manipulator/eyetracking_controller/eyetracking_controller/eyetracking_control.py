@@ -63,7 +63,7 @@ class KeyboardController(Node):
 
         self.linkLens = [0.128, 0.124, 0.126]
         self.linkOffs = [0.096326, 0.024]
-        self.forkDims = [0.095, 0.0225]
+        self.forkDims = [0.095, 0.045]
 
         self.jointLimits=((-np.pi, np.pi), (-1.5, 1.5), (-1.5, 1.4), (-1.7, 1.97))
 
@@ -121,7 +121,6 @@ class KeyboardController(Node):
 
     def process_data(self):
         TLpixel_meters = [0.065, -0.1375] # Robot pose of TL camera pixel
-
         validImgDims = self.imageWidth > 0 and self.imageHeight > 0
         if validImgDims:
             if not self.img_dims_logging:
@@ -171,7 +170,6 @@ class KeyboardController(Node):
 
                 blobCoords = [y_meter_blob, x_meter_blob]
                 self.retrieve_food(blobCoords)
-                time.sleep(5)
                 self.return_home()
 
         elif self.keypoins_logging:
@@ -201,21 +199,24 @@ class KeyboardController(Node):
         return q_start + (q_end - q_start) * s
 
     def retrieve_food(self, coords):
-        aboveBeforeFoodPose = [coords[0], coords[1], 0.1, 0.0]
+        Fv = self.forkDims[0] 
+        Fh = self.forkDims[1]
+        forkAng = -(np.pi/2 - np.arctan2(Fv, Fh))
+        aboveBeforeFoodPose = [coords[0], coords[1], 0.1, forkAng]
         aboveBeforeFoodJoints, success = self.IK(aboveBeforeFoodPose)
-
+                
         if not success:
             self.get_logger().error('Failed to calculate IK for the above food pose.')
             return
         
-        atFoodPose = [coords[0], coords[1], 0.02, 0.0]
+        atFoodPose = [coords[0], coords[1], 0.00, forkAng]
         atFoodJoints, success = self.IK(atFoodPose)
 
         if not success:
             self.get_logger().error('Failed to calculate IK for the at food pose.')
             return
         
-        aboveAfterFoodPose = [coords[0], coords[1], 0.25, np.pi/2]
+        aboveAfterFoodPose = [coords[0], coords[1], 0.1, 0]
         aboveAfterFoodJoints, success = self.IK(aboveAfterFoodPose)
 
         if not success:
@@ -224,22 +225,22 @@ class KeyboardController(Node):
         
         desiredForkAng = np.pi/12
         angAdjusted = np.pi/2 - desiredForkAng
-        eatingPose = [0.127, -0.1375, 0.25, angAdjusted]
+        eatingPose = [0.127, -0.3, 0.2, angAdjusted]
         eatingJoints, success = self.IK(eatingPose)
 
         if not success:
             self.get_logger().error('Failed to calculate IK for the eating pose.')
             return
-
+        
         current_joints = self.arm_joint_positions 
         target_keyframes = [aboveBeforeFoodJoints, atFoodJoints, aboveAfterFoodJoints, eatingJoints]
-        
+        needConfirmAfterKeyframe = [1, 0, 0, 1]
         T = 2.5
         dt = 0.001
         
         start_pos = current_joints
         
-        for goal_pos in target_keyframes:
+        for point_num, goal_pos in enumerate(target_keyframes):
             t = 0.0
             while t < T:
                 waypoint = self.get_quintic_pos(start_pos, goal_pos, t, T)
@@ -249,7 +250,15 @@ class KeyboardController(Node):
                 
                 t += dt
                 time.sleep(dt)
-            start_pos = goal_pos 
+            start_pos = goal_pos
+            if needConfirmAfterKeyframe[point_num]:
+                self.get_logger().info('Waiting for confirmation before continuing. Press Space.')
+                confirmed = False
+                while not confirmed:
+                    key = self.get_key()
+                    if key == ' ':
+                        confirmed = True
+                    time.sleep(0.01)
 
     def return_home(self):
         current_joints = self.arm_joint_positions 
@@ -384,8 +393,9 @@ class KeyboardController(Node):
         # self.BRpixelsWindow = [2559, 1376] # bottom right of overhead camera image on the laptop screen in pixels
         # self.imageHeight = 144 # height of overhead camera image in pixels
         # self.imageWidth = 320 # width of overhead camera image in pixels
-        # self.gazeXY = np.array([588, 925]) # eyetracked gaze on the laptop screen in pixels
-        # self.keypoints = [[43, 43], [277, 43], [277, 103], [43, 103]] # keypoints in overhead camera image in pixels
+        # self.gazeXY = np.array([1000, 1000]) # eyetracked gaze on the laptop screen in pixels
+        # # self.keypoints = [[43, 43], [277, 43], [277, 103], [43, 103]] # keypoints in overhead camera image in pixels
+        # self.keypoints = [[0,0], [0, 140], [319, 143], [319, 0]]
         while True:
             self.process_data()
             self.return_home()
