@@ -120,7 +120,7 @@ class KeyboardController(Node):
 
 
     def process_data(self):
-        TLpixel_meters = [0.065, -0.1375] # Robot pose of TL camera pixel
+        TLpixel_meters = [0.0675, -0.1375] # Robot pose of TL camera pixel
         validImgDims = self.imageWidth > 0 and self.imageHeight > 0
         if validImgDims:
             if not self.img_dims_logging:

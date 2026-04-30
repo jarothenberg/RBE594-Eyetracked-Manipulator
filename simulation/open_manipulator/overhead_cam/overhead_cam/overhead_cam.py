@@ -248,7 +248,7 @@ def main():
     # TODO: run calibration? test calibration?
 
     # make camera available
-    vc = cv.VideoCapture(7)
+    vc = cv.VideoCapture(5)
 
     # Set resolution (Property 3 is Width, 4 is Height)
     vc.set(cv.CAP_PROP_FRAME_WIDTH, 640)
