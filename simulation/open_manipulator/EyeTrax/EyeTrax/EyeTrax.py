@@ -2,16 +2,14 @@ import argparse
 import sys
 
 sys.path.append('/root/ros2_ws/src/open_manipulator/EyeTrax/src')
-sys.path.append('./simulation/open_manipulator/EyeTrax/src')
 
-import argparse
 from eyetrax.app.demo import run_demo
 
 def main():
     args = argparse.Namespace(
                 filter='none',
                 ema_alpha=0.25,
-                camera=4,
+                camera=9,
                 calibration='dense',
                 grid_rows=5,
                 grid_cols=5,

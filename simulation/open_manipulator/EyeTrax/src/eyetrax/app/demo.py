@@ -32,14 +32,14 @@ from geometry_msgs.msg import Point
 import rclpy
 from rclpy.node import Node
 
-class MinimalPublisher(Node):
+class EyeTrackingPublisher(Node):
     def __init__(self):
-        super().__init__('minimal_publisher')
+        super().__init__('eyetracking_publisher')
         self.publisher_ = self.create_publisher(Point, 'eyetracking_pose', 10)
 
 def run_demo(args=None):
     rclpy.init(args=None)
-    min_pub = MinimalPublisher()
+    eyetracking_pub = EyeTrackingPublisher()
 
     if args is None:
         args = parse_common_args()
@@ -125,13 +125,18 @@ def run_demo(args=None):
             if filter_method == "kde" and contours:
                 cv2.drawContours(canvas, contours, -1, (15, 182, 242), 5)
 
-            if x_pred is not None and y_pred is not None and cursor_alpha > 0:
-                draw_cursor(canvas, x_pred, y_pred, cursor_alpha)
-                msg = Point()
+            msg = Point()
+            if x_pred is not None and y_pred is not None:
+                if cursor_alpha > 0:
+                    draw_cursor(canvas, x_pred, y_pred, cursor_alpha)
                 msg.x = float(x_pred)
                 msg.y = float(y_pred)
                 msg.z = float(0)
-                min_pub.publisher_.publish(msg)
+            else:
+                msg.x = float(-1)
+                msg.y = float(-1)
+                msg.z = float(-1)
+            eyetracking_pub.publisher_.publish(msg)
 
             thumb = make_thumbnail(frame, size=(cam_width, cam_height), border=BORDER)
             h, w = thumb.shape[:2]
